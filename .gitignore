@@ -54,6 +54,8 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+bin/
+
 # MATLAB/OCTAVE/SIMULINK settings
 # ---------------------------------------
 # Windows default autosave extension
