@@ -37,8 +37,14 @@ hr=210; % reservoir head, m
 pump.A=-0.0045;
 pump.B=0;
 pump.C=45;
-% Pump energy consumption P(q,s) = gp * q * s^2 + hp * n * s^3 where n is the
-% number of pumps switched on and operating in parallel
+% Pump energy consumption:
+% P(q,s) = ep * q^3 + fp * q^2 * s + gp * q * s^2 + hp * s^3 
+% where n is the number of pumps switched on and operating in parallel and s
+% is the pump speed.
+% TODO: MODIFY P EQUATION ELSEWHERE IN THE CODE AND SUPPLY UPDATED ep, fp, gp,
+%       and hp COEFFICIENTS.
+pump.ep = 0.0;
+pump.fp = 0.0;
 pump.gp=0.2422;
 pump.hp=40;
  

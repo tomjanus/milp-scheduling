@@ -9,5 +9,5 @@ run('initialize.m')
 N = init_schedule.N;
 S = init_schedule.S;
 plot_simulation_results(q,hc,P,ht,N,S,input)
-% Formulate linear program
+% Step 3 - Formulate linear program
 
