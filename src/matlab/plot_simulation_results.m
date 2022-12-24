@@ -1,10 +1,10 @@
 function y = plot_simulation_results(q,hc,P,ht,N,S,input)
   % Plot simulation results
-  AXIS_FONTSIZE = 22;
-  ANNOTATION_FONTSIZE = 22;
-  LABEL_FONTSIZE = 26;
-  TITLE_FONTSIZE = 26;
-  LEGEND_FONTSIZE = 18;
+  AXIS_FONTSIZE = 18;
+  ANNOTATION_FONTSIZE = 20;
+  LABEL_FONTSIZE = 18;
+  TITLE_FONTSIZE = 24;
+  LEGEND_FONTSIZE = 16;
   TIME_HORIZON = 24;
   
   time_1=[0:TIME_HORIZON];
@@ -34,7 +34,7 @@ function y = plot_simulation_results(q,hc,P,ht,N,S,input)
       'interpreter', 'latex');
     ll = legend('$q_3$ - pump','$q_4$ - tank feed','$q_5$ - demand supply', ...
       'forced demand');
-    set(ll,
+    set(ll,...
       'fontsize', LEGEND_FONTSIZE,...
       'interpreter', 'latex',...
       'color', 'none',...
@@ -48,11 +48,11 @@ function y = plot_simulation_results(q,hc,P,ht,N,S,input)
     xticks([0:2:24])
     grid on;
     hold  off;
-    if (save_to_pdf == 1)
-      print (hf1, "scheduling_plots/flows_n_demand_initial", "-dpdflatexstandalone");
-      system ("pdflatex scheduling_plots/flows_n_demand_initial scheduling_plots/flows_n_demand_initial");     
-    endif
-  endif
+    % if (save_to_pdf == 1)
+      % print (hf1, "scheduling_plots/flows_n_demand_initial", "-dpdflatexstandalone");
+      % system ("pdflatex scheduling_plots/flows_n_demand_initial scheduling_plots/flows_n_demand_initial");     
+    % end
+  end
   
   if (print_plots(2) == 1)
     % HEAD AT NODES
@@ -74,7 +74,7 @@ function y = plot_simulation_results(q,hc,P,ht,N,S,input)
       'interpreter', 'latex');
     ll = legend('$h_2$ - pump inlet','$h_3$ - pump outlet',...
       '$h_4$ - node 4','$h_6$ - demand node', '$h_t$ - tank level');
-    set(ll,
+    set(ll,...
      'fontsize', LEGEND_FONTSIZE,...
      'interpreter', 'latex',...
      'color', 'none',...
@@ -85,11 +85,11 @@ function y = plot_simulation_results(q,hc,P,ht,N,S,input)
     xticks([0:2:24])    
     grid on;
     hold off;
-    if (save_to_pdf == 1)
-      print (hf2, "scheduling_plots/heads_initial", "-dpdflatexstandalone");
-      system ("pdflatex scheduling_plots/heads_initial scheduling_plots/heads_initial");     
-    endif
-  endif
+    % if (save_to_pdf == 1)
+      % print (hf2, "scheduling_plots/heads_initial", "-dpdflatexstandalone");
+      % system ("pdflatex scheduling_plots/heads_initial scheduling_plots/heads_initial");     
+    % end
+  end
   
   if (print_plots(3) == 1)
      % ENERGY CONSUMPTION
@@ -101,12 +101,12 @@ function y = plot_simulation_results(q,hc,P,ht,N,S,input)
     stairs(time_1,100*T1,'LineWidth',2);
     xticks(0:1:TIME_HORIZON);
     xlabel ("Time, hrs", 'fontsize', LABEL_FONTSIZE, 'interpreter', 'latex');
-    ylabel('Energy cost [Â£/kWh]', 'fontsize', LABEL_FONTSIZE, ...
+    ylabel('Energy cost [£/kWh]', 'fontsize', LABEL_FONTSIZE, ...
       'interpreter', 'latex');
     title('Energy cost and tariff', 'fontsize', TITLE_FONTSIZE,...
       'interpreter', 'latex');
     ll=legend('energy cost','tariff');
-    set(ll,
+    set(ll,...
      'fontsize', LEGEND_FONTSIZE,...
      'interpreter', 'latex',...
      'color', 'none',...
@@ -117,11 +117,11 @@ function y = plot_simulation_results(q,hc,P,ht,N,S,input)
     xticks([0:2:24])    
     grid;
     hold off;
-    if (save_to_pdf == 1)
-      print (hf3, "scheduling_plots/energy_consumption", "-dpdflatexstandalone");
-      system ("pdflatex scheduling_plots/energy_consumption scheduling_plots/energy_consumption");     
-    endif
-  endif
+    i% f (save_to_pdf == 1)
+      % print (hf3, "scheduling_plots/energy_consumption", "-dpdflatexstandalone");
+      % system ("pdflatex scheduling_plots/energy_consumption scheduling_plots/energy_consumption");     
+    % end
+  end
 
   if (print_plots(4) == 1)
     % PUMP SCHEDULES
@@ -138,7 +138,7 @@ function y = plot_simulation_results(q,hc,P,ht,N,S,input)
     title('Pump schedule', 'fontsize', TITLE_FONTSIZE,...
       'interpreter', 'latex');
     ll = legend('No. working pumps','Pump speed (relative to nominal)');
-    set(ll,
+    set(ll,...
      'fontsize', LEGEND_FONTSIZE,...
      'interpreter', 'latex',...
      'color', 'none',...
@@ -149,10 +149,10 @@ function y = plot_simulation_results(q,hc,P,ht,N,S,input)
     xticks([0:2:24])    
     grid;
     hold off;
-    if (save_to_pdf == 1)
-      print (hf3, "scheduling_plots/schedule", "-dpdflatexstandalone");
-      system ("pdflatex scheduling_plots/schedule scheduling_plots/schedule");     
-    endif
-  endif
+    % if (save_to_pdf == 1)
+      % print (hf3, "scheduling_plots/schedule", "-dpdflatexstandalone");
+      % system ("pdflatex scheduling_plots/schedule scheduling_plots/schedule");     
+    % end
+  end
 
 end

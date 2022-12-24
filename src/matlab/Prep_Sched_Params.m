@@ -1,5 +1,4 @@
 
-global R1 R2 R3 R4 A B C At nc nf e Lc Lf hr et x_min x_max gp hp d  T time
 
 %% TANK
 % ht0(k) - initial tank trajectory from the diqpipe0mulator
@@ -8,10 +7,12 @@ global R1 R2 R3 R4 A B C At nc nf e Lc Lf hr et x_min x_max gp hp d  T time
 
 %% POWER
 % P0(j,k) -  initial conditiond, power from Simulator j=1,2; k=1:24
+% ep_s(j) - coefficient in power equation - new
+% fp_s(j) - coefficient in power equation - new
 % gp_s(j)   coefficient in power equation
 % hp_s(j)  - coefficient in power equation
 
-% n0(j,k) - pump ON/OFF schedule from the si,ulator
+% n0(j,k) - pump ON/OFF schedule from the simulator
 % s0(j,k)  - pump speed from simulator
 % qpump0(j,k)   - pump flow from simulator
 % ss0(2,4,24) - initial pump domain speed
@@ -36,6 +37,7 @@ global R1 R2 R3 R4 A B C At nc nf e Lc Lf hr et x_min x_max gp hp d  T time
 % BB0(4,3,240 - intial segment selection  in pipes
 
  global R1 R2 R3 R4 A B C At nc nf e Lc Lf hr et x_min x_max gp hp d  T time
+ 
 
  Lambda=[Lc;Lf];
  dh0=Lambda'*h;
@@ -65,6 +67,7 @@ for j=1:2
     qitcp(j)=(-B-sqrt(detq))/(2*A);
     gp_s(j)=gp;
     hp_s(j)=hp;
+    %% Co-ordinates of points fo approximation of the pump hydraulic characteristic
     p_nominal(j,1)=1;
     p_nominal(j,2)=qitcp(j)/2;
     p_nominal(j,3)=A*p_nominal(j,2)^2+B*p_nominal(j,2)+C;
@@ -255,8 +258,8 @@ end
     
     %% AUXILIRY VARIABLES FOR PICE-LINEAR PIPE CHARACTERISTICS
     for j=1:4
-        for i=1:3
-          for k=1:24
+       
+          for k=1:24 for i=1:3
             if (xp(j,i)<=qpipe0(j,k))& (qpipe0(j,k)<xp(j,i+1))
                 ww0(j,i,k)=qpipe0(j,k);
                 BB0(j,i,k)=1;
