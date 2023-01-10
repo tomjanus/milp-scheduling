@@ -6,9 +6,18 @@
  
 ind_row=1;
 
+
+function Aeq = create_Aeq()
+  % Creates the equality constraint matrix
+end
+
+function beq = create_beq()
+  % Creates the equality constraint vector
+end
+
 %% MAIN TIME LOOP
 
-for k=1:24
+for k=1:TIME_HORIZON
     
 %% Group 1 - Tank level equation
    
@@ -72,9 +81,9 @@ for k=1:24
                    A1eq(ind_row,ind_col)=-1;
                    b1eq(ind_row)=0;
              else
-                 ind_col=hc1(origin,24,2);
+                 ind_col=hc1(origin,TIME_HORIZON,2);
                  A1eq(ind_row,ind_col)=1;
-                 ind_col=hc1(destination,24,2);
+                 ind_col=hc1(destination,TIME_HORIZON,2);
                  A1eq(ind_row,ind_col)=-1;
                   b1eq(ind_row)=0;
              end

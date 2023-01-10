@@ -4,7 +4,7 @@ b1=zeros(2016,1);
 
 %% MAIN TIME LOOP
 
-for k=1:24
+for k=1:TIME_HORIZON
     
             
     %% Group 1 - pumps which contribute to power

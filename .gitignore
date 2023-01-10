@@ -94,3 +94,4 @@ src/matlab/paper_plots/
 src/matlab/scheduling_plots/
 manuscript/
 src/matlab/outtakes_nogit/
+*.mat
