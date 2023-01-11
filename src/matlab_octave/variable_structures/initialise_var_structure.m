@@ -69,7 +69,7 @@ function vars = initialise_var_structure(...
   % number of binary variables for domain selection for pumps
   % $aa_{l,pump_seg}(n)$ for l = 1 : network.npumps and 
   % pump_seg = 1 : no_pump_segments
-  no_pump_seg_vars = no_pump_flow_seg_vars; 
+  no_pump_seg_vars = no_pipe_seg_flows; 
   % COST
   % number of variables determining on/off status of each pump
   % $n_{l}(n)$ for l = 1 : network.npumps
@@ -83,6 +83,6 @@ function vars = initialise_var_structure(...
   vars.x_bin = x_bin;
   
   % Calculate numbers of continuous and binary variables
-  vars.n_cont = length(struct_to_vector(x_cont));
-  vars.n_bin = length(struct_to_vector(x_bin));;
+  vars.n_cont = length(struct_to_vector(vars, "x_cont"));
+  vars.n_bin = length(struct_to_vector(vars, "x_bin"));;
 end
