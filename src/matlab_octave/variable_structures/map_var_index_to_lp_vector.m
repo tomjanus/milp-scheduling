@@ -14,6 +14,7 @@ function y = map_var_index_to_lp_vector(var_structure, var_name, var_index)
   % Returns index pointing to the variable in the vector x of MILP formulation
   fn=fieldnames(var_structure);
   % Loop through the fields
+  parsed_fields = {"x_cont", "x_bin"};
   
   field_found = false;
   start_index = 0;
@@ -22,7 +23,7 @@ function y = map_var_index_to_lp_vector(var_structure, var_name, var_index)
       % Only select the variable fields: x_cont and x_bin
       field_name = fn{i};
       % If we are dealing with the vectors
-      if (field_name == 'x_cont') || (field_name == 'x_bin')
+      if ismember(field_name, parsed_fields)
         % Iterate through the variables - continuous first and then binary
         var_names = fieldnames(var_structure.(field_name));
         for j=1:numel(var_names)

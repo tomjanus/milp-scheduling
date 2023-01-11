@@ -1,5 +1,7 @@
 function y = test_pipe_linearization()
   warning('off','all');
+  test_name = "test_pipe_linearization";
+  fprintf("\nRunning test: %s \n", test_name);
   % Provide test pipe and linearization data
   R_test = 0.00035391;
   q_op_test = 50;
@@ -29,6 +31,7 @@ function y = test_pipe_linearization()
   end
   fprintf("----------------------------------------------------------------\n");
   warning('on','all');
+  fprintf("Test: %s complete. \n\n", test_name);
   y = 1;
 end
 

@@ -1,5 +1,7 @@
-function y = test_pipe_linearization()
+function y = test_power_linearization()
   warning('off','all');
+  test_name = "test_power_linearization";
+  fprintf("\nRunning test: %s \n", test_name);
   % Create a test pump object
   test_pump.ep = 0.0;
   test_pump.fp = 0.0;
@@ -35,7 +37,7 @@ function y = test_pipe_linearization()
   p2 = [q_min, s_max, pump_head(test_pump, q_min, 1, s_max)]; % min-max
   p3 = [q_int_smax , s_max, pump_head(test_pump, q_int_smax, 1, s_max)]; % max-max
   p4 = [q_int_smin , s_min, pump_head(test_pump, q_int_smin, 1, s_min)]; % max-min
-  
+
   % Specify a cell with constraint signs
   constraint_signs = {">", "<", "<", ">"};
   domain_vertices = {p1, p2, p3, p4};
@@ -43,6 +45,7 @@ function y = test_pipe_linearization()
   % Linearize the power consumption model
   out = linearize_power_model(test_pump, q_op, s_op, ...
       domain_vertices, constraint_signs);
+
   m_dq = out(1).coeff(1);
   m_ds = out(1).coeff(2);
   c = out(1).coeff(3);
@@ -66,6 +69,7 @@ function y = test_pipe_linearization()
   fprintf("----------------------------------------------------------------\n");
   % Provide test pump data
   warning('on','all');
+  fprintf("Test: %s complete. \n\n", test_name);
   y = 1;
 end
 

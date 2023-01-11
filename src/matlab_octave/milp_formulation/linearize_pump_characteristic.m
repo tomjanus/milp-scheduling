@@ -35,5 +35,5 @@ function out = linearize_pump_characteristic(pump)
   domain_vertices = {p1, p2, p3, p4};
   
   %% Currently only supports the tetrahedron linearization in create_tetrahedron
-  out = create_tetrahedron(p1, p2, p3, p4, pn, constraint_signs)
+  out = create_tetrahedron(p1, p2, p3, p4, pn, constraint_signs);
 end

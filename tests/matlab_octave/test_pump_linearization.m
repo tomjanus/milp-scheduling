@@ -1,5 +1,7 @@
 function y = test_pump_linearization()
   % Function for testing the accuracy of pump characteristic linearization
+  test_name = "test_pump_linearization";
+  fprintf("\nRunning test: %s \n", test_name);
   warning('off','all');
   % Provide test pump data
   test_pump.smin = 0.7;
@@ -59,6 +61,7 @@ function y = test_pump_linearization()
   end 
   fprintf("----------------------------------------------------------------\n");
   warning('on','all');
+  fprintf("Test: %s complete. \n\n", test_name);
   y = 1;
 end
 

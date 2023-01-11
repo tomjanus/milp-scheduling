@@ -36,7 +36,7 @@ function y = create_tangent_surface(p_t, x_tan, y_tan, ...
   
   number_vertices = numel(domain_vertices);
   for i = 1:number_vertices
-    p_1 = domain_vertices{i}
+    p_1 = domain_vertices{i};
     if i<number_vertices
       p_2 = domain_vertices{i+1};
     else
