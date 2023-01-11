@@ -12,6 +12,11 @@ function vars = initialise_var_structure(...
   %
   % Returns:
   % structure with continuous and binary variable vectors
+
+  % TODO: Arguments no_pipe_segments and no_pump_segments should come
+  % from within linearization functions as they may depend on the type
+  % and/or parameterization of chosen linearization functions out of
+  % the set of available linearization options.
   
   % TANKS (CALCULATED NODES WITH FLOW-HEAD RELATIONSHIPS)
   % number of variables describing tank heads in the network, $h_{t,k}(n)$
@@ -77,7 +82,7 @@ function vars = initialise_var_structure(...
   vars.x_cont = x_cont;
   vars.x_bin = x_bin;
   
-  % Calculate numbers of continuour and binary variables
+  % Calculate numbers of continuous and binary variables
   vars.n_cont = length(struct_to_vector(x_cont));
   vars.n_bin = length(struct_to_vector(x_bin));;
 end
