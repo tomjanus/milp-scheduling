@@ -21,9 +21,10 @@ function var_vector = struct_to_vector(var_struct, var_type)
       for l=1:numel(subfield_names)
         subfield_name = subfield_names{l};
         subfield_value = var_struct.(field_name).(subfield_name);
-        if(isnumeric(subfield_value) && length(subfield_value > 0))
-            var_vector = [var_vector; subfield_value];
-        end        
+        if number_of_dimensions(subfield_value) > 1
+          subfield_value = tensor_to_vector(subfield_value);
+        end
+        var_vector = [var_vector; subfield_value];
       end
     end
   end

@@ -1,5 +1,5 @@
 function vars = initialise_var_structure(...
-    network, no_steps, no_pipe_segments, no_pump_segments)
+    network, no_steps, no_pipe_segments, no_pump_segments, variable_format)
   % Create a structure of continuous and binary decision variables and 
   % initialize the variable vectors with zeros
   %
@@ -9,6 +9,9 @@ function vars = initialise_var_structure(...
   %   network - network structure
   %   no_steps - number of time steps for which schedule is calculated
   %   no_pipe_segments - number of segments each pipe is discretized into
+  %   variable_format (optional) - option to store variables either as
+  %      multidimensional tensors (if requied) or as stacked vectors
+  %      Options = ["vector", "tensor"]
   %
   % Returns:
   % structure with continuous and binary variable vectors
@@ -17,67 +20,61 @@ function vars = initialise_var_structure(...
   % from within linearization functions as they may depend on the type
   % and/or parameterization of chosen linearization functions out of
   % the set of available linearization options.
+  available_formats = {"vector", "tensor"};
   
-  % TANKS (CALCULATED NODES WITH FLOW-HEAD RELATIONSHIPS)
-  % number of variables describing tank heads in the network, $h_{t,k}(n)$
-  % for k = 1 : network.nt tanks
-  no_tank_vars = network.nt * no_steps;
-  % CALCULATED NODES
-  % number of calculated heads, $h_{c,j}(n)$ for j = 1: network.nc calculated nodes
-  no_calc_head_vars = network.nc * no_steps;
-  %% PIPES
-  % number of calculated pipe flows, $q_{i}(n)$ for i = 1: nework.npipes
-  no_calc_flow_vars = network.npipes * no_steps;
-  % number of pipe segment flows, $ww_{i,p_seg}(n)$ for i = 1 : network.npipes
-  % and p_seg = 1 : no_pipe_segments
-  no_pipe_seg_flows = network.npipes * no_pipe_segments * no_steps;  
-  % PUMPS
-  % number of continuous variables for pump domain speed,
-  % $ss_{l,pump_seg}(n)$ for l = 1 : network.npumps and 
-  % pump_seg = 1 : no_pump_segments
-  no_pump_speed_seg_vars = network.npumps * no_pump_segments * no_steps; 
-  % number of continuous variables for pump domain flow,
-  % $qq_{l,pump_seg}(n)$ for l = 1 : network.npumps and 
-  % pump_seg = 1 : no_pump_segments
-  no_pump_flow_seg_vars = network.npumps * no_pump_segments * no_steps;
-  % COST
-  % number of variables quantifying power consumption by pumps (all individual
-  % pumps quantified separately. $p_{l}(n)$ for l = 1 : network.npumps
-  no_power_vars = network.npumps * no_steps;
-  % number of variables determining pump speed of each pump
-  % $s_{l}(n)$ for l = 1 : network.npumps
-  no_pump_speed_vars = no_power_vars;
-  % number of variables determining pump flow of each pump
-  % $q_{l}(n)$ for l = 1 : network.npumps
-  no_pump_flow_vars = no_power_vars;  
+  if nargin == 4
+    variable_format = "vector";
+  end
   
-  x_cont.ht = zeros(no_tank_vars, 1);
-  x_cont.hc = zeros(no_calc_head_vars, 1);
-  x_cont.qpipe = zeros(no_calc_flow_vars, 1);
-  x_cont.ww = zeros(no_pipe_seg_flows, 1);
-  x_cont.ss = zeros(no_pump_speed_seg_vars, 1);
-  x_cont.qq = zeros(no_pump_flow_seg_vars, 1);
-  x_cont.p = zeros(no_power_vars, 1);
-  x_cont.s = zeros(no_pump_speed_vars, 1);
-  x_cont.q = zeros(no_pump_flow_vars, 1);
+  % Throw error if variable format not in the list of available formats
+  if ~ismember(variable_format, available_formats)
+    printf("Provided variable format: %s not recognized\n", variable_format);
+    printf("Using the default vector formet.\n");
+    variable_format = "vector";
+  end
   
-  % PIPES
-  % binary variables for pipe segment selection, $bb_{i,pipe_seg}(n)$ 
-  % for i = 1 : network.npipes and pipe_seg = 1 : no_pipe_segments
-  no_pipe_seg_vars = no_pump_flow_seg_vars;
-  % PUMPS
-  % number of binary variables for domain selection for pumps
-  % $aa_{l,pump_seg}(n)$ for l = 1 : network.npumps and 
-  % pump_seg = 1 : no_pump_segments
-  no_pump_seg_vars = no_pipe_seg_flows; 
-  % COST
-  % number of variables determining on/off status of each pump
-  % $n_{l}(n)$ for l = 1 : network.npumps
-  no_pump_on_off_vars = network.npumps * no_steps;  
+  % Initialize continuous variables
+  ht = zeros(no_steps, network.nt);
+  hc = zeros(no_steps, network.nc);
+  qpipe = zeros(no_steps, network.npipes);
+  ww = zeros(no_pipe_segments, no_steps, network.npipes);
+  ss = zeros(no_pump_segments, no_steps, network.npumps);
+  qq = zeros(no_pump_segments, no_steps, network.npumps);
+  p = zeros(no_steps, network.npumps);
+  q = zeros(no_steps, network.npumps);
+  s = zeros(no_steps, network.npumps);
+  cont_vars = {ht, hc, qpipe, ww, ss, qq, p, q, s};
   
-  x_bin.bb = zeros(no_pipe_seg_vars, 1);
-  x_bin.aa = zeros(no_pump_seg_vars, 1);
-  x_bin.n = zeros(no_pump_on_off_vars, 1);  
+  % Initialize binary variables
+  bb = zeros(no_pipe_segments, no_steps, network.npipes); % Binary variables for pipe segment selection
+  aa = zeros(no_pump_segments, no_steps, network.npumps);; % Binary variables for pump segment selection
+  n = zeros(no_steps, network.npumps);
+  bin_vars = {bb, aa, n};
+  
+  if strcmp(variable_format, "vector")
+    % Convert multidimensional arrays to vectors
+    for i = 1:length(cont_vars)
+      cont_vars{i} = tensor_to_vector(cont_vars{i});
+    end
+    for i = 1:length(bin_vars)
+      bin_vars{i} = tensor_to_vector(bin_vars{i});
+    end
+  end
+  
+  % Store variables in a vector format
+  x_cont.ht = cont_vars{1};
+  x_cont.hc = cont_vars{2};
+  x_cont.qpipe = cont_vars{3};
+  x_cont.ww = cont_vars{4};
+  x_cont.ss = cont_vars{5};
+  x_cont.qq = cont_vars{6};
+  x_cont.p = cont_vars{7};
+  x_cont.s = cont_vars{8};
+  x_cont.q = cont_vars{9};
+  
+  x_bin.bb = bin_vars{1};
+  x_bin.aa = bin_vars{2};
+  x_bin.n = bin_vars{3};  
   
   vars.x_cont = x_cont;
   vars.x_bin = x_bin;

@@ -13,6 +13,8 @@ function y = test_intcon_vector_creation()
   % TODO: should this be npumps or number of pump groups?
   test_network.npumps = 2;
 
+  % TODO: TEST BOTH THE VECTOR AND TENSOR VAR STRUCTURES
+  
   vars = initialise_var_structure(...
     test_network, 24, 3, 4);
   no_vars_in_struct = var_struct_length(vars);

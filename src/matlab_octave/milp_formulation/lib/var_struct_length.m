@@ -21,7 +21,7 @@ function struct_length = var_struct_length(var_struct, var_type)
       subfield_names = fieldnames(var_struct.(field_name));
       for l=1:numel(subfield_names)
         subfield_name = subfield_names{l};
-        field_length = length(var_struct.(field_name).(subfield_name));
+        field_length = numel(var_struct.(field_name).(subfield_name));
         struct_length = struct_length + field_length;
       end
     end    
