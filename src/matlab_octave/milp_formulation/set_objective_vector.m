@@ -30,6 +30,7 @@ function f_vector = set_objective_vector(...
   
   % Create copies of variable structures used to later create an objective
   % coefficient vector
+  
   f_struct = vars;
   f_cont = vars.x_cont;
   f_bin = vars.x_bin;
@@ -38,13 +39,11 @@ function f_vector = set_objective_vector(...
     error('Number of scheduling steps greater than the length of the tariff')
   end
   
-  enum = 1;
   for i = 1:network.npumps
     for j = 1:no_steps
       % Set objective function coefficientsm i.e. multipliers of the pump 
       % power consumption `p`
-      f_struct.x_cont.p(enum) = tariff_vec(j) * time_step;
-      enum = enum + 1;
+      f_struct.x_cont.p(j,i) = tariff_vec(j) * time_step;
     end
   end
   
