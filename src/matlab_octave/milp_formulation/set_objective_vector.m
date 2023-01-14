@@ -22,8 +22,8 @@ function f_vector = set_objective_vector(...
   %   tarif_vec - vector of energy tariffs over the scheduling horizon
   %   time_step - simulation time-step, normally 1 hr
   %   no_steps - number of time-steps in the scheduling horizon
-  %   sparse_out - logical variable defining whether to output a sparse
-  %                representation of the objective vector
+  %   sparse_out - logical variable defining whether to output is sparse
+  %                [optional], true by default
   
   % Returns:
   %   vector of objectives
@@ -31,12 +31,18 @@ function f_vector = set_objective_vector(...
   % Create copies of variable structures used to later create an objective
   % coefficient vector
   
+  if nargin < 6
+    % If sparse_out not provided
+    sparse_out = true;
+  end
+    
+  
   f_struct = vars;
   f_cont = vars.x_cont;
   f_bin = vars.x_bin;
   
   if no_steps > length(tariff_vec)
-    error('Number of scheduling steps greater than the length of the tariff')
+    error('Number of scheduling steps greater than the length of the tariff');
   end
   
   for i = 1:network.npumps
