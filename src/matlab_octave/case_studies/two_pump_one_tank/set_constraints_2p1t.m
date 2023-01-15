@@ -1,4 +1,4 @@
-y = set_constraints_2p1t(network, tank)
+function y = set_constraints_2p1t(network, tank)
     % Create a constraint structure for the two pump one tank system
     constraints.ht = [tank.elevation+tank.x_min, tank.elevation+tank.x_max];
     constraints.hc = [205, 240];
