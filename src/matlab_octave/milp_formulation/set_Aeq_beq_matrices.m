@@ -9,10 +9,11 @@ function [Aeq, beq] = set_Aeq_beq_matrices(vars, network, tank, input, ...
   [Aeq_ss, beq_ss] = ss_constraints(vars);
   [Aeq_qq, beq_qq] = qq_constraints(vars);
   [Aeq_aa, beq_aa] = aa_constraints(vars);
+  [Aeq_nodeq, beq_nodeq] = nodeq_constraints(network, vars);
 
   % Concatenate all Aeq matrices and beq vectors
-  Aeq = [Aeq_ht; Aeq_qpipe; Aeq_bb; Aeq_dhpipe; Aeq_ss; Aeq_qq; Aeq_aa];
-  beq = [beq_ht; beq_qpipe; beq_bb; beq_dhpipe; beq_ss; beq_qq; beq_aa];
+  Aeq = [Aeq_ht; Aeq_qpipe; Aeq_bb; Aeq_dhpipe; Aeq_ss; Aeq_qq; Aeq_aa; Aeq_nodeq];
+  beq = [beq_ht; beq_qpipe; beq_bb; beq_dhpipe; beq_ss; beq_qq; beq_aa; beq_nodeq];
 
   if (sparse_out == true)
     Aeq = sparse(Aeq);
@@ -241,4 +242,35 @@ function [Aeq_aa, beq_aa] = aa_constraints(vars)
       end
   end
   beq_aa = beq_aa(:);
+end
+
+function [Aeq_nodeq, beq_nodeq] = nodeq_constraints(network, vars)
+  % Apply constraints to nodal flows
+    % Prepare incidence matrices without non-pipe elements
+  Lc = remove_columns(network.Lc, network.elements.pump_index);
+  %Lf = remove_columns(network.Lf, network.elements.pump_index);
+  %L = combine_incidence_matrices(Lc, Lf);
+  % Find rows in Lc that have more than one entry, i.e. two or more pipes
+  % are joined in a node requiring a flow mass balance constraint
+  % TODO: DO WE NEED TO CHECK Lf TOO?
+  junction_indices = find(sum(abs(Lc),2)>1);
+  no_equalities = length(junction_indices);
+  number_time_steps = size(vars.x_cont.qpipe,1);
+  % Initialize output arrays
+  Aeq_nodeq = zeros(no_equalities, var_struct_length(vars));
+  beq_nodeq = zeros(no_equalities,1);
+  row_counter = 1;
+  for j = 1:no_equalities
+    for i = 1:number_time_steps
+      Aeq=vars;
+      row_index = junction_indices(j);
+      sel_row = Lc(row_index,:);
+      Aeqs.x_cont.qpipe(i,find(sel_row==1)) = 1;
+      Aeq.x_cont.qpipe(i,find(sel_row==-1)) = -1;
+      Aeq_nodeq(row_counter,:) = struct_to_vector(Aeq)';
+      beq_nodeq(row_counter)=0;
+      row_counter = row_counter + 1;
+    end
+  end
+  beq_nodeq = beq_nodeq';
 end
