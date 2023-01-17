@@ -18,7 +18,7 @@ function out = linearize_pipes(network, sim_out, rep_hr, Upipes)
     Upipes = repmat(Upipes, no_pipes, 1);
   else
     if length(Upipes) ~= no_pipes
-      error("Length of vector Upipes: %d not equal to no. of pipes: %d", length(Upipes), no_pipes);
+      error('Length of vector Upipes: %d not equal to no. of pipes: %d', length(Upipes), no_pipes);
     end
   end
   q_sim = sim_out.q(network.elements.pipe_index,:); % Select flows in pipes only

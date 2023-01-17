@@ -1,7 +1,7 @@
 function y = test_pipe_linearization()
   warning('off','all');
-  test_name = "test_pipe_linearization";
-  fprintf("\nRunning test: %s \n", test_name);
+  test_name = 'test_pipe_linearization';
+  fprintf('\nRunning test: %s \n', test_name);
   % Provide test pipe and linearization data
   R_test = 0.00035391;
   q_op_test = 50;
@@ -18,8 +18,8 @@ function y = test_pipe_linearization()
   if (length(test_flows) ~= length(segments))
     error('Points and segments vectors do not have equal lengths');
   end
-  fprintf("----------------------------------------------------------------\n");
-  fprintf("Comparison of nonlinear and linearized pipe models\n");
+  fprintf('----------------------------------------------------------------\n');
+  fprintf('Comparison of nonlinear and linearized pipe models\n');
   for i = 1:length(test_flows)
     % Find head-drop from nonlinear characteristic
     dh_nl = pipe_characteristic(R_test, test_flows(i));
@@ -29,9 +29,9 @@ function y = test_pipe_linearization()
     fprintf('Point %d, Flow %.1f L/s , Headloss %.2f m, perc. error %.1f , abs. error %.3f m\n', ...
         i, test_flows(i), dh_nl, perc_error(dh_nl, dh_lin), abs_error(dh_nl, dh_lin));
   end
-  fprintf("----------------------------------------------------------------\n");
+  fprintf('----------------------------------------------------------------\n');
   warning('on','all');
-  fprintf("Test: %s complete. \n\n", test_name);
+  fprintf('Test: %s complete. \n\n', test_name);
   y = 1;
 end
 

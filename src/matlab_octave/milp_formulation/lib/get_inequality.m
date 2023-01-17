@@ -20,7 +20,7 @@ function y = get_inequality(coeffs)
   %      and y.coeffs = [0, coeffs(2)];
   
   if length(coeffs) ~= 2
-    error("Expected coeffs arguments needs to be an array of length 2. Length %d given", ...
+    error('Expected coeffs arguments needs to be an array of length 2. Length %d given', ...
           length(coeffs));
   end
   if coeffs(0) == nan

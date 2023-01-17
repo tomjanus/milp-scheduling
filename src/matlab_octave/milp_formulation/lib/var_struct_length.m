@@ -9,7 +9,7 @@ function struct_length = var_struct_length(var_struct, var_type)
   if nargin == 2
     parsed_fields = {var_type};
   else
-    parsed_fields = {"x_cont", "x_bin"};
+    parsed_fields = {'x_cont', 'x_bin'};
   end
   
   field_names = fieldnames(var_struct);

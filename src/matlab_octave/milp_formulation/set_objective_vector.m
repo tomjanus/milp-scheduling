@@ -53,8 +53,8 @@ function f_vector = set_objective_vector(...
     end
   end
   
-  f_vector = [struct_to_vector(f_struct, "x_cont"); ...
-              struct_to_vector(f_struct, "x_bint")];
+  f_vector = [struct_to_vector(f_struct, 'x_cont'); ...
+              struct_to_vector(f_struct, 'x_bint')];
   
   % Convert the output vector to its sparse representation, if required
   if (sparse_out == true)

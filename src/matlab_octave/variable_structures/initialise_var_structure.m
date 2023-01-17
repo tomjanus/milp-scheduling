@@ -42,6 +42,6 @@ function vars = initialise_var_structure(...
   vars.x_bin = x_bin;
   
   % Calculate numbers of continuous and binary variables
-  vars.n_cont = length(struct_to_vector(vars, "x_cont"));
-  vars.n_bin = length(struct_to_vector(vars, "x_bin"));
+  vars.n_cont = length(struct_to_vector(vars, 'x_cont'));
+  vars.n_bin = length(struct_to_vector(vars, 'x_bin'));
 end

@@ -1,7 +1,7 @@
 function y = test_pump_linearization()
   % Function for testing the accuracy of pump characteristic linearization
-  test_name = "test_pump_linearization";
-  fprintf("\nRunning test: %s \n", test_name);
+  test_name = 'test_pump_linearization';
+  fprintf('\nRunning test: %s \n', test_name);
   warning('off','all');
   % Provide test pump data
   test_pump.smin = 0.7;
@@ -48,8 +48,8 @@ function y = test_pump_linearization()
   selected_domains = [1, 1, 3];
   % Compare pump head from the non-linear and linear model
   % Nonlinear values
-  fprintf("----------------------------------------------------------------\n");
-  fprintf("Comparison of nonlinear and linearized pump models\n");
+  fprintf('----------------------------------------------------------------\n');
+  fprintf('Comparison of nonlinear and linearized pump models\n');
   for point_index = 1:size(test_points,1) 
     q = test_points(point_index, 1);
     s = test_points(point_index, 2);
@@ -59,9 +59,9 @@ function y = test_pump_linearization()
     fprintf('Point %d : Flow %.1f , Speed %.2f , Head %.2f m, perc. error %.2f , abs. error %.3f \n', ...
       point_index, q, s, H_nl, perc_error(H_nl, H_l), abs_error(H_nl, H_l));
   end 
-  fprintf("----------------------------------------------------------------\n");
+  fprintf('----------------------------------------------------------------\n');
   warning('on','all');
-  fprintf("Test: %s complete. \n\n", test_name);
+  fprintf('Test: %s complete. \n\n', test_name);
   y = 1;
 end
 

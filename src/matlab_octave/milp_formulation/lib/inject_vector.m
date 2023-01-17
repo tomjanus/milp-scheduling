@@ -17,7 +17,7 @@ function vector = inject_vector(recipient_vec, injection_vec, start_position)
   if end_position > length_recipient
     difference = end_position - length_recipient;
     max_length = length_injection - difference;
-    error("Injected vector of length %d too long. Max. Length = %d\n",...
+    error('Injected vector of length %d too long. Max. Length = %d\n',...
       length_injection, max_length);
   end
   vector = recipient_vec;

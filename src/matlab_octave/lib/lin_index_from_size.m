@@ -10,12 +10,12 @@ function index_1d = lin_index_from_size(array_size, index_array)
   
   % Argument consistency check
   if length(array_size) ~= length(index_array)
-    error("Array dimensions and index arguments do not have the same lengths.");
+    error('Array dimensions and index arguments do not have the same lengths.');
   end
   % Check all indices
   for i = 1:length(index_array)
     if index_array{i} > array_size(i)
-      error("Index %d supplied in index array beyond bounds.", index_array{i});
+      error('Index %d supplied in index array beyond bounds.', index_array{i});
     end
   end
   index_1d = sub2ind(array_size, index_array{:});

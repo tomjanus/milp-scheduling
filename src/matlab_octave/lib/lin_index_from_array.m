@@ -10,7 +10,7 @@ function index_1d = lin_index_from_array(var_array, index_array)
   
   % Carry out data consistency checks
   if number_of_dimensions(var_array) ~= length(index_array)
-    error("Number of indices %d different from of var array dimension - %d", ...
+    error('Number of indices %d different from of var array dimension - %d', ...
       length(index_array), number_of_dimensions(var_array));
   end
   
@@ -19,7 +19,7 @@ function index_1d = lin_index_from_array(var_array, index_array)
   end
   
   if ~iscell(index_array)
-    error("index_array argument must be a scalar or a cell of values");
+    error('index_array argument must be a scalar or a cell of values');
   end
   % Generate a linear (1D) index
   index_1d = sub2ind(size(var_array), index_array{:});

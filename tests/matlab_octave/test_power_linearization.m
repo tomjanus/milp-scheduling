@@ -1,7 +1,7 @@
 function y = test_power_linearization()
   warning('off','all');
-  test_name = "test_power_linearization";
-  fprintf("\nRunning test: %s \n", test_name);
+  test_name = 'test_power_linearization';
+  fprintf('\nRunning test: %s \n', test_name);
   % Create a test pump object
   test_pump.ep = 0.0;
   test_pump.fp = 0.0;
@@ -39,7 +39,7 @@ function y = test_power_linearization()
   p4 = [q_int_smin , s_min, pump_head(test_pump, q_int_smin, 1, s_min)]; % max-min
 
   % Specify a cell with constraint signs
-  constraint_signs = {">", "<", "<", ">"};
+  constraint_signs = {'>', '<', '<', '>'};
   domain_vertices = {p1, p2, p3, p4};
   
   % Linearize the power consumption model
@@ -56,8 +56,8 @@ function y = test_power_linearization()
                20, 1;
                60, 1.2];
   % Compare power consumption between nonlinear and linear model
-  fprintf("----------------------------------------------------------------\n");
-  fprintf("Comparison of nonlinear and linearized power consumption models\n");
+  fprintf('----------------------------------------------------------------\n');
+  fprintf('Comparison of nonlinear and linearized power consumption models\n');
   for i = 1:size(q_s_array, 1)
     q = q_s_array(i, 1);
     s = q_s_array(i, 2);
@@ -66,10 +66,10 @@ function y = test_power_linearization()
     fprintf('Point %d : Flow %.1f , Speed %.2f , Power %.2f kW, perc. error %.2f , abs. error %.3f \n', ...
       i, q, s, P_nonlin, perc_error(P_nonlin, P_lin), abs_error(P_nonlin, P_lin));
   end
-  fprintf("----------------------------------------------------------------\n");
+  fprintf('----------------------------------------------------------------\n');
   % Provide test pump data
   warning('on','all');
-  fprintf("Test: %s complete. \n\n", test_name);
+  fprintf('Test: %s complete. \n\n', test_name);
   y = 1;
 end
 

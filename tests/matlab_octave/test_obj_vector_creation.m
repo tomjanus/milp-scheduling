@@ -1,8 +1,8 @@
 function y = test_obj_vector_creation()
   %
   warning('off','all');
-  test_name = "test_obj_vector_creation";
-  fprintf("\nRunning test: %s \n", test_name);
+  test_name = 'test_obj_vector_creation';
+  fprintf('\nRunning test: %s \n', test_name);
   % Set test input values
   test_time_step = 1;
   sparse_out = true;
@@ -32,5 +32,5 @@ function y = test_obj_vector_creation()
     y = 0;
   end
   warning('on','all');
-  fprintf("Test: %s complete. \n\n", test_name);
+  fprintf('Test: %s complete. \n\n', test_name);
 end
