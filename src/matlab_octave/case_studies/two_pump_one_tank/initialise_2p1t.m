@@ -44,7 +44,7 @@ pump.A = -0.0045;
 pump.B = 0;
 pump.C = 45;
 % Pump energy consumption:
-% P(q,s) = ep * q^3 + fp * q^2 * s + gp * q * s^2 + hp * s^3 
+% P(q,s) = ep * q^3 + fp * q^2 * s + gp * q * s^2 + hp * s^3
 % where n is the number of pumps switched on and operating in parallel and s
 % is the pump speed.
 pump.ep = 0.0;
@@ -66,7 +66,7 @@ network.npipes = 4;
 network.ne = network.npipes + network.npg; % number of pipes (elements) Is e2 and e3 treated as one?
 network.nc = 4; % number of calculated nodes
 network.nf = 2; % number of fixed head nodes
-% TODO: Make this part generic. Currently it is assumed that each pump group 
+% TODO: Make this part generic. Currently it is assumed that each pump group
 % has the same number of pumps (per pump group). Vectorise the variables to
 % allow having different number of pumps in every pump group
 network.npumps = network.np * network.npg;
@@ -74,7 +74,7 @@ network.npumps = network.np * network.npg;
 % FUTURE VARIABLES
 network.ncheck = 0; % number of check valves
 network.nprv = 0; % number of PRVs
- 
+
 %% INITIALISATION
 % Initial pump schedules
 init_schedule.N = [2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 0 0 0 2 2 2 2 2 2];
@@ -82,9 +82,11 @@ init_schedule.S = 0.8 * ones(1, TIME_HORIZON);
 % Initial tank head
 init_level = 3.0;
 if ((init_level < tank.x_min) || (init_level > tank.x_max))
-  error('Initial tank level not within bounds')
+  error('Initial tank level not within bounds');
+else
+  tank.init_level = init_level;
 end
-ht0 = tank.elevation + init_level; % make sure that x_min <= init_level <= x_max
+ht0 = tank.elevation + tank.init_level; % make sure that x_min <= init_level <= x_max
 
 %% Create the input structure
 % A 24x1 vector of tariffs
@@ -105,7 +107,7 @@ input.hr = hr;
 
 %% Create the network structure
 % -------------------------------
-% (4 pipes: n1-n2; n3-n4; n4-n5; n5-n6) 
+% (4 pipes: n1-n2; n3-n4; n4-n5; n5-n6)
 L_pipe = [10, 1610, 61, 1610];
 D_pipe = [1, 0.355, 0.458, 0.254];
 % Calculate pipe areas
@@ -114,12 +116,12 @@ A_pipe = pi*D_pipe.^2/4;
 fDW = [0.015, 0.015, 0.015, 0.015];
 
 % Network topology
-% node-element incidence matrix for the (calculated) connection nodes 
+% node-element incidence matrix for the (calculated) connection nodes
 network.Lc = [1 -1 0 0 0;...
     0 1 -1 0 0;...
     0 0 1 -1 -1;...
     0 0 0 0 1];
-% node-element incidence matrix for the fixed (non-calculated) connection nodes 
+% node-element incidence matrix for the fixed (non-calculated) connection nodes
 network.Lf=[-1 0 0 0 0;...
     0 0 0 1 0];
 % Combined incidence matrix for calculated and non-calculated connection nodes
@@ -127,17 +129,24 @@ network.L = [network.Lc; network.Lf];
 % Pipe resistances
 network.R = 10^-6*fDW.*L_pipe./(2*g*D_pipe.*A_pipe.^2);
 network.tank = tank;
-network.tank_feed_pipe_index = 4;
-% In a more general case, network.pump_pipe_index will be a vector of length
-% equal to network.npg
-network.pump_pipe_index = 2;
+
+% Differentiate between element and pipe/pump indices.
+% In the simulator, all elements are lumped into a signle vector but, for the
+% purpose of MILP, pumps and pipes are treated separately
+network.pipes.tank_feed_pipe_index = 3;
+network.elements.tank_feed_pipe_index = 4;
+% In a more general case, network.elements.pump_pipe_index will be a vector of
+% length equal to network.npg
+network.elements.pump_pipe_index = 2;
 
 
 % Indices of variables within matrices and vectors
 % TODO: SORT OUT THE INDEX INCONSISTENCY RESULTING FROM TWO ELEMENTS
 % ASSOCIATED WITH PUMP GROUP BUT ONLY ONE PUMP GIVEN IN THE MODEL
-network.pipe_index=[1;3;4;5]; % Pipe flow index for the simulator results
-network.pump_index=[2;3];
+network.elements.pipe_index=[1;3;4;5]; % Pipe flow index for the simulator results
+network.elements.pump_index = [2];
+%network.elements.pump_index=[2;3];
+
 % Indices of calculated nodes, reservoir nodes and tank nodes, respectively
 network.hc_index=[1;2;3;4]; % Row number in network.L matrix
 network.hr_index=[5]; % Row number in network.L matrix
