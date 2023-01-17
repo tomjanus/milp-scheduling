@@ -3,5 +3,5 @@ function out = linearize_pipes_2pt1(network, sim_out)
   % case study model.
   rep_hr = 12;
   Upipes = [150, 150, 150, 150];
-  out = linearize_pipes(network, sim_out, rep_hr, Upipes)
+  out = linearize_pipes(network, sim_out, rep_hr, Upipes);
 end

@@ -55,6 +55,8 @@ pump.smin = 0.7;
 pump.smax = 1.2;
 pump.max_eff_flow = 45;
 
+pump_groups{1} = pump;
+
 network.npg = 1; % number of pump groups
 % In a more general case number of pumps per group would be a vector of length
 % equal to network.npg
