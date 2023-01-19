@@ -1,4 +1,4 @@
-function y = plot_2pt1_simulation_results(output,N,S,input)
+function y = plot_2pt1_simulation_results(output, N, S, input, sim)
   % unpack the outputs structure
   q = output.q;
   hc = output.hc;
@@ -11,9 +11,9 @@ function y = plot_2pt1_simulation_results(output,N,S,input)
   LABEL_FONTSIZE = 18;
   TITLE_FONTSIZE = 24;
   LEGEND_FONTSIZE = 16;
-  TIME_HORIZON = 24;
+  sim.TIME_HORIZON = 24;
   
-  time_1=[0:TIME_HORIZON];
+  time_1=[0:sim.TIME_HORIZON];
   
   print_plots = [1, 1, 1, 1];
   save_to_pdf = 0;
@@ -22,20 +22,20 @@ function y = plot_2pt1_simulation_results(output,N,S,input)
     % Plot element flows and demand
     hf1=figure();
     hold on;
-    q3=[q(3,:) q(3,TIME_HORIZON)];
+    q3=[q(3,:) q(3,sim.TIME_HORIZON)];
     stairs(time_1,q3,'LineWidth',2);
-    q4=[q(4,:) q(4,TIME_HORIZON)];
+    q4=[q(4,:) q(4,sim.TIME_HORIZON)];
     stairs(time_1,q4,'LineWidth',2);
-    q5=[q(5,:) q(5,TIME_HORIZON)];
+    q5=[q(5,:) q(5,sim.TIME_HORIZON)];
     stairs(time_1, q5,'LineWidth',2);
     % Plot demand
-    demand=[input.demand*input.df, input.demand(TIME_HORIZON)*input.df];
+    demand=[input.demands(4,:)*input.df, input.demands(4, sim.TIME_HORIZON)*input.df];
     demand_point = stairs(time_1, demand,'o');
     set(demand_point                         , ...
     'Marker'          , 'o'         , ...
     'MarkerSize'      , 8           , ...
     'MarkerFaceColor' , [1 1 1] );
-    xticks(0:1:TIME_HORIZON);
+    xticks(0:1:sim.TIME_HORIZON);
     title('Flow in selected elements', 'fontsize', TITLE_FONTSIZE,...
       'interpreter', 'latex');
     ll = legend('$q_3$ - pump','$q_4$ - tank feed','$q_5$ - demand supply', ...
@@ -64,16 +64,16 @@ function y = plot_2pt1_simulation_results(output,N,S,input)
     % HEAD AT NODES
     hf2 = figure();
     hold on;
-    hc1=[hc(1,:) hc(1,TIME_HORIZON)];
+    hc1=[hc(1,:) hc(1,sim.TIME_HORIZON)];
     stairs(time_1,hc1,'LineWidth',2);
-    hc2=[hc(2,:) hc(2,TIME_HORIZON)];
+    hc2=[hc(2,:) hc(2,sim.TIME_HORIZON)];
     stairs(time_1,hc2,'LineWidth',2);
-    hc3=[hc(3,:) hc(3,TIME_HORIZON)];
+    hc3=[hc(3,:) hc(3,sim.TIME_HORIZON)];
     stairs(time_1,hc3,'LineWidth',2);
-    hc4=[hc(4,:) hc(4,TIME_HORIZON)];
+    hc4=[hc(4,:) hc(4,sim.TIME_HORIZON)];
     stairs(time_1,hc4,'LineWidth',2);
     plot(time_1,ht,'k-*');
-    xticks(0:1:TIME_HORIZON);
+    xticks(0:1:sim.TIME_HORIZON);
     xlabel ('Time, hrs', 'fontsize', LABEL_FONTSIZE, 'interpreter', 'latex');
     ylabel('Head, m', 'fontsize', LABEL_FONTSIZE, 'interpreter', 'latex');
     title('Heads at selected nodes', 'fontsize', TITLE_FONTSIZE,...
@@ -100,12 +100,12 @@ function y = plot_2pt1_simulation_results(output,N,S,input)
   if (print_plots(3) == 1)
      % ENERGY CONSUMPTION
     hf3 = figure();
-    P1=[P; P(TIME_HORIZON)];
+    P1=[P; P(sim.TIME_HORIZON)];
     stairs(time_1,P1,'LineWidth',2);
     hold on;
-    T1=[input.tariff input.tariff(TIME_HORIZON)];
+    T1=[input.tariff input.tariff(sim.TIME_HORIZON)];
     stairs(time_1,100*T1,'LineWidth',2);
-    xticks(0:1:TIME_HORIZON);
+    xticks(0:1:sim.TIME_HORIZON);
     xlabel ('Time, hrs', 'fontsize', LABEL_FONTSIZE, 'interpreter', 'latex');
     ylabel('Energy cost [£/kWh]', 'fontsize', LABEL_FONTSIZE, ...
       'interpreter', 'latex');
@@ -132,12 +132,12 @@ function y = plot_2pt1_simulation_results(output,N,S,input)
   if (print_plots(4) == 1)
     % PUMP SCHEDULES
     hf4 = figure();
-    N1=[N N(TIME_HORIZON)];
+    N1=[N N(sim.TIME_HORIZON)];
     stairs(time_1,N1,'LineWidth',2);
     hold on;
-    S1=[S S(TIME_HORIZON)];
+    S1=[S S(sim.TIME_HORIZON)];
     stairs(time_1,S1,'LineWidth',2);
-    xticks(0:1:TIME_HORIZON);
+    xticks(0:1:sim.TIME_HORIZON);
     xlabel ('Time, hrs', 'fontsize', LABEL_FONTSIZE, 'interpreter', 'latex');
     ylabel('No. of pumps and pump speed', 'fontsize', LABEL_FONTSIZE, ...
       'interpreter', 'latex');

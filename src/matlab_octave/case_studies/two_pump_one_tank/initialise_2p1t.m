@@ -88,7 +88,7 @@ function [input,const,linprog,network,sim] = initialise_2p1t()
       error('Initial tank level not within bounds');
     else
       tanks(i).init_level = init_level;
-      tanks(i).ht0 = tank.elevation + tank.init_level; % make sure that x_min <= init_level <= x_max
+      tanks(i).ht0 = tank.elevation + init_level; % make sure that x_min <= init_level <= x_max
     end
   end
   
@@ -122,6 +122,8 @@ function [input,const,linprog,network,sim] = initialise_2p1t()
   network.npipes = length(network.pipe_indices);
   % Number of elements is equal to number of pipes + number of pump groups
   network.ne = network.npipes + network.npg; 
+  
+  network.elements.tank_feed_pipe_index = 4;
   
   % Find the total number of pumps
   _npumps = 0;

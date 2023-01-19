@@ -1,4 +1,4 @@
-function y = hydraulics_2p1t(x,n,s,d,hr,htt, network, pump)
+function y = hydraulics_2p1t(x,n,s,d,htt, input, network, pump)
   % Hydraulic function for the simple two-pump one-tank network
   % 
   % Args:
@@ -6,9 +6,9 @@ function y = hydraulics_2p1t(x,n,s,d,hr,htt, network, pump)
   %     connection nodes (4 vars) at time step k. 
   % n - number of working pumps at time step k
   % s - pump speed s_min <= s <= s_max at time step k
-  % d - demand at time step k
-  % hr - reservoir head at time step k
+  % d - nodal demands at time step k
   % htt - tank head at the nex time step
+  % input - input structure
   % network - network structure
   % pump - pump structure
   % 
@@ -18,18 +18,23 @@ function y = hydraulics_2p1t(x,n,s,d,hr,htt, network, pump)
   %
   qh=x(1:network.ne);
   hch=x(network.ne+1:network.ne+network.nc);
-  hf(1)=hr;
+  hf(1)=input.hr;
   hf(2)=htt;
   y=zeros(network.ne+network.nc,1);
   %
   y(1:network.nc)=network.Lc*qh.';
-  y(network.nc)=y(network.nc)-d;
-  %
-  dH(1)=network.R(1)*qh(1)*abs(qh(1));
-  dH(2)=pump_head(pump, qh(2), n, s);
-  dH(3)=network.R(2)*qh(3)*abs(qh(3));
-  dH(4)=network.R(3)*qh(4)*abs(qh(4));
-  dH(5)=network.R(4)*qh(5)*abs(qh(5));
+  y(network.nc)=y(network.nc)-d(4);
+  % Heads in pipes
+  dH = zeros(network.ne,1)';
+  for i = 1:length(network.pipe_indices)
+    pipe_index = network.pipe_indices(i);
+    dH(pipe_index) = network.Rs(i)*qh(pipe_index)*abs(qh(pipe_index));
+  end
+  % Heads in pumps
+  for i = 1:length(network.pump_group_indices)
+    pump_index = network.pump_group_indices(i);
+    dH(pump_index) = pump_head(pump, qh(pump_index), n, s);
+  end
   %
   y(network.nc+1:network.nc+network.ne)=...
     dH.'+ network.Lc.'*hch.'+ network.Lf.'*hf.';

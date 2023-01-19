@@ -1,4 +1,4 @@
-function y = set_constraints_2p1t(network, tank)
+function y = set_constraints_2p1t(network)
     % Create a constraint structure for the two pump one tank system
     % The returned structure must match the fields of the variable
     % structure used to formulate the MILP problem.
@@ -9,6 +9,8 @@ function y = set_constraints_2p1t(network, tank)
     % e.g. for different tanks or pumps.
     x_cont = struct();
     y_cont = struct();
+    % Get tank from the network structure - there's only one tank in this case study
+    tank = network.tanks(1);
 
     x_cont.ht = [tank.elevation+tank.x_min, tank.elevation+tank.x_max];
     x_cont.hc = [205, 240];
@@ -22,7 +24,10 @@ function y = set_constraints_2p1t(network, tank)
 
     x_bin.bb = [0, 1];
     x_bin.aa = [0, 1];
-    x_bin.n = [0, network.np];
+    x_bin.n = [0, 1]; % Each pump treated individually. Think later about changing
+    % n value constraints so that it can also accept values larger than one and 
+    % only consider one (representative) pump in a group instead of every pump
+    % separately
 
     y.x_cont = x_cont;
     y.x_bin = x_bin;
