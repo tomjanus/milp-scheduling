@@ -20,6 +20,10 @@ function [input,const,linprog,network,sim] = initialise_2p1t()
   % input 
   % constants
   
+  % TODO: Remove redundancy in data - e.g remove tank_feed_pipe index as it is
+  % alredy included in the tank structure and pump_group_index as it is already
+  % included in the pump structure
+  
   %% Define network characteristics required for defining the data structures
   elevations = [210, 210, 220, 220, 230, 210]; % node elevations
   hr = 210; % reservoir head, m
@@ -72,6 +76,7 @@ function [input,const,linprog,network,sim] = initialise_2p1t()
   pump1.max_eff_flow = 45;
   pump_groups(1).pump = pump1;
   pump_groups(1).npumps = 2;
+  pump_groups(1).element_index = 2;
   
   % 2. TANKS
   tank1.elevation = elevations(5);
@@ -81,6 +86,7 @@ function [input,const,linprog,network,sim] = initialise_2p1t()
   tank1.x_max = 3.5;
   tank1.init_level = nan;
   tank1.ht0 = nan;
+  tank1.feed_pipe_index = 4;
   tanks(1) = tank1;
   % Set initial levels (initialize tanks)
   for i = 1:length(tanks)
