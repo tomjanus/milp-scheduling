@@ -28,7 +28,7 @@ function y = map_var_index_to_lp_vector(var_structure, var_name, var_index)
         var_names = fieldnames(var_structure.(field_name));
         for j=1:numel(var_names)
           var_j_name = var_names{j};
-          var_j_length = length(var_structure.(field_name).(var_j_name));
+          var_j_length = numel(var_structure.(field_name).(var_j_name));
           if strcmp(var_j_name, var_name) == true
             field_found = true;
             break
