@@ -12,7 +12,7 @@ function out = linearize_pipes(network, sim_out, rep_hr, Upipes)
   % Return:
   %   Cell of linearized pipe output structures 
   
-  no_pipes = length(network.R);
+  no_pipes = length(network.Rs);
   out = cell(no_pipes, 1);
   if length(Upipes) == 1
     Upipes = repmat(Upipes, no_pipes, 1);
@@ -21,10 +21,10 @@ function out = linearize_pipes(network, sim_out, rep_hr, Upipes)
       error('Length of vector Upipes: %d not equal to no. of pipes: %d', length(Upipes), no_pipes);
     end
   end
-  q_sim = sim_out.q(network.elements.pipe_index,:); % Select flows in pipes only
+  q_sim = sim_out.q(network.pipe_indices,:); % Select flows in pipes only
   
   for i = 1:no_pipes
-    R = network.R(i);
+    R = network.Rs(i);
     Upipe = Upipes(i);
     q_op = q_sim(i, rep_hr);
     out{i} = linearize_pipe_characteristic(R, q_op, Upipe);
