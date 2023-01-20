@@ -48,6 +48,8 @@ function [input,const,linprog,network,sim] = initialise_2p1t()
   %% DISCRETIZATION SETTINGS
   linprog.NO_PIPE_SEGMENTS = 3;
   linprog.NO_PUMP_SEGMENTS = 4;
+  linprog.NO_PRED_STEPS = 24; % Prediction horizon
+  liprog.TIME_STEP = 1;
   
   %% NETWORK STRUCTURE AND NETWORK COMPONENTS
   % 1 PUMPS

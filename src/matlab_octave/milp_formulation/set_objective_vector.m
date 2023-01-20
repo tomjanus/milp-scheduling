@@ -1,5 +1,5 @@
-function f_vector = set_objective_vector(...
-    vars, network, tariff_vec, time_step, no_steps, sparse_out)
+function f_vector = set_objective_vector(vars, network, input, linprog, ...
+                                         sparse_out)
   % Find a vector of objective vector coefficients
   % Apply tariff multiplier to the power consumption vector in x_cont variable
   % structure
@@ -19,9 +19,8 @@ function f_vector = set_objective_vector(...
   %   vars - structure with all continuous and binary variables in the MILP 
   %          formulation
   %   network_data - structure with network data
-  %   tarif_vec - vector of energy tariffs over the scheduling horizon
-  %   time_step - simulation time-step, normally 1 hr
-  %   no_steps - number of time-steps in the scheduling horizon
+  %   input - structure with input data
+  %   linprog - structure of linear programme configuration parameters
   %   sparse_out - logical variable defining whether to output is sparse
   %                [optional], true by default
   
@@ -31,11 +30,14 @@ function f_vector = set_objective_vector(...
   % Create copies of variable structures used to later create an objective
   % coefficient vector
   
+  no_steps = linprog.NO_PRED_STEPS;
+  time_step = linprog.TIME_STEP;
+  tariff_vec = input.tariff;
+  
   if nargin < 6
     % If sparse_out not provided
     sparse_out = true;
   end
-    
   
   f_struct = vars;
   f_cont = vars.x_cont;

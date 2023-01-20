@@ -23,13 +23,12 @@ function var_vector = struct_to_vector(var_struct, var_type)
     subfield_names=fieldnames(var_struct.(field_name));
     for l=1:numel(subfield_names)
       subfield_name = subfield_names{l};
-      subfield_value = var_struct.(field_name).(subfield_name);
+      subfield_vector = var_struct.(field_name).(subfield_name);
       % Convert the fields to vectors
-      if number_of_dimensions(subfield_value) > 1
-        subfield_value = tensor_to_vector(subfield_value);
+      if number_of_dimensions(subfield_vector) > 1
+        subfield_vector = tensor_to_vector(subfield_vector);
       end
-      var_vector = [var_vector; subfield_value];
+      var_vector = [var_vector; subfield_vector];
     end
   end
-  
 end

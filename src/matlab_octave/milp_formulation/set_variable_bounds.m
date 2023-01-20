@@ -3,7 +3,7 @@ function [lb, ub] = set_variable_bounds(var_struct, constraints)
   % Set constraints on continuous variables
   % Args:
   % var_struct - structure of variables with x_cont and x_bin fields
-  % constarints - 
+  % constraints - 
   
   % Create copies of the var stucture. (in this way we can make sure that the
   % size and order of variables in the lower and upper bound vectors corresponds
