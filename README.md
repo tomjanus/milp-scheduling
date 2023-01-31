@@ -1,14 +1,72 @@
-# MILOPS-WDN
-## Mixed Integer Linear Optimal Pump Scheduling in Water Distribution Networks
+<div id="top"></div>
+# Mixed Integer Linear Optimal Pump Scheduler for Water Distribution Networks
 
 <!-- PROJECT LOGO -->
 <p align="center">
-    <img alt="dam-opt-logo" src="https://lh3.googleusercontent.com/AIOZe7ipu17ldHz971iYHlhpfQS17lnL6paQjy1ThRpXGOEWSubiLbUwXaOqVaVsZqRStkr_fbDsDqIHD7PGEzc4PKlUuQNYEDG_waFu31804MCUjGaLydi1PE5uN7Ml_h9vMHgIYV4ADoh9BZK-uyxEkFPYnOvnVFUku7QmeCARS8OLIO6p3BMWsOL7Ds-yl0cOUnqMkd3rZ9e0T2P6gXmz6141t3ppQryJIf2V0QQv43Cp8Z7AxL2UNEChd82JLAwGDOzm9_aFLUA3Vz-ag9LI-cVNOVkyukcGyWBFR60lqB4yKAKwq6t_lI8Wf-B0G1hhpnj--3mBoGdRWyXReRj3AXWf_25Ox4UwaEWE77WtlPVUzW4-vwm0hWD7lqe0XPIROMCN3Wd8iw1OUBL6_1tFC-_7DXjB5MUd1jtbYN8VvZ07W47xPZq8ldNgeQteY8Z3JYDXMb50_hzdGpM7eU0VLNh8T05jXrjTiiga7R-Ego55IHAqw-cPWL_OdQTcfZWGcWqWXYyKqfKeRN4LIG8TpeRGloNz_yyYQG0SPj17ulj6vdhldEu5XWe1_Ec22QG3Nm_TJa6YY6JJ74UO9xWH8YB5vJf3Y32gJlQKP2Z49fb7h7PejjcGb3XkGBSpfXEkOdA2RoXGVfSqh7hQTSj2Ee77v5e1CYw7bodVmNn8YOfaYTcdBtStH8xADqe5-pBE2tmNZEjE1Davwupu5ljAmX3iduv-1iDkua0sYRJ9W91FIqdgzpLDPPiEKTBQeFn80yXNmWHMLM25mfrkunBN1Ppw1qj1csZCanWaUnRf24H-9ZBZqGHXMyeeKACnYdvkfVLV2sLJPddZYlK9iz0IfbT7X6E8Z4bs-QcB-n9YJOvFU99bG3TVKVUbTtCFBi-4LWNdblsDb6aVNEmUmX0SAyQrlqfwpVhl-srkh9-0IimftToxgj5C3dYBDwCvKLMCCyKcC8wj53_9-ikkrCXWCFgxZzV7C-1HROzHb6WKDYWlB5cc9A=w1193-h158-no?authuser=2"/>
+    <img alt="dam-opt-logo" src="https://link.us1.storjshare.io/raw/jvyhgzlc5qqh2a44bvn5umvng2jq/milops-wdn/milops-wdn-logo.png"/>
 </p>
 
+<!-- ABOUT THE PROJECT -->
+## About The Library
+This repository contains MATLAB/OCTAVE code for solving optimal pump scheduling problems using piecewise linear approximations of pipes and control elements, and subsequent formulation of the problem as mixed integer linear programming (MILP).
 
-This repository contains MATLAB/OCTAVE code for solving optimal pump
-scheduling problem via approximatiom of a water distribution system
-(pipes plus control elements) into piecewise-linear functions and formulation
-of a mixed integer linear programming (MILP) problem which is then solved
-by one of the MILP solvers.
+### :fire: Features
+
+## Installation
+The package first needs to be installed via the following script `src/matlab_octave/install_milp_scheduler.m`. The script adds paths to the package files in the MATLAB/OCTAVE environment with the set of `ADDPATH()` commands.
+
+## Usage
+The pump scheduling code composed of model initialisation, (nonlinear) model simulation with intitial schedule, MILP problem formulation and solution, and final simulation of the nonlinear model with the optimal schedule can be run via `src/matlab_octave/run_scheduling.m`
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- CITING -->
+## Citing
+
+If you use MILOPS-WDN for academic research, please cite the library using the following BibTeX entry.
+
+```
+@misc{milops-wdn2023,
+ author = {Bogumil Ulanicki, Tomasz Janus},
+ title = {MILOPS-WDN: Mixed Integer Linear Optimal Pump Scheduler in Water Distribution Networks},
+ year = {2023},
+ url = {https://github.com/tomjanus/milp-scheduling},
+}
+```
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- CONTACT -->
+## :mailbox_with_mail: Contact
+- Tomasz Janus - tomasz.janus@manchester.ac.uk
+- Bogumil Ulanicki - bul@dmu.ac.uk
+
+Project Link: [https://github.com/tomjanus/milp-scheduling](https://github.com/tomjanus/milp-scheduling)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- ACKNOWLEDGMENTS -->
+## References
+
+## Contributors ✨
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/tomjanus"><img src="https://avatars.githubusercontent.com/tomjanus" width="100px;" alt=""/><br /><sub><b>Tomasz Janus</b></sub></a><br /><a href="https://github.com/tomjanus/reemission/commits?author=tomjanus" title="Code">💻</a><a href="https://github.com/tomjanus/reemission/commits?author=tomjanus" title="Tests">⚠️</a> <a href="https://github.com/tomjanus/reemission/issues/created_by/tomjanus" title="Bug reports">🐛</a><a href="#design-TJanus" title="Design">🎨</a><a href="" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/jojo0094"><img src="https://avatars.githubusercontent.com/jojo0094" width="100px;" alt=""/><br /><sub><b>Aung Kyaw Kyaw</b></sub></a><br /><a href="https://github.com/tomjanus/reemission/commits?author=jojo0094" title="Code">💻</a><a href="https://github.com/tomjanus/reemission/commits?author=jojo0094" title="Tests">⚠️</a></td>
+  </tr>
+</table>
+
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+<p align="right">(<a href="#top">back to top</a>)</p>

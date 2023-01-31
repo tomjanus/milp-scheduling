@@ -147,7 +147,6 @@ function succ = install_milp_scheduler(modify, verbose)
           fprintf('Once you have added the required directories to your %s path\n', sw);
           fprintf('MILP-SCHEDULER will be installed and ready to use.\n\n');
       end
-      fprintf('You may want to begin by typing: initialise_bin_var_structure\n');
   end
   
 end

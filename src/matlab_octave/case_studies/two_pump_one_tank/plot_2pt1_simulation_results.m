@@ -1,4 +1,4 @@
-function y = plot_2pt1_simulation_results(output, N, S, input, sim)
+function y = plot_2pt1_simulation_results(output, N, S, input, sim, save_to_pdf)
   % unpack the outputs structure
   q = output.q;
   hc = output.hc;
@@ -6,17 +6,16 @@ function y = plot_2pt1_simulation_results(output, N, S, input, sim)
   P = output.P;
   
   % Plot simulation results
-  AXIS_FONTSIZE = 18;
+  AXIS_FONTSIZE = 22;
   ANNOTATION_FONTSIZE = 20;
-  LABEL_FONTSIZE = 18;
-  TITLE_FONTSIZE = 24;
-  LEGEND_FONTSIZE = 16;
+  LABEL_FONTSIZE = 25;
+  TITLE_FONTSIZE = 28;
+  LEGEND_FONTSIZE = 18;
   sim.TIME_HORIZON = 24;
   
   time_1=[0:sim.TIME_HORIZON];
   
   print_plots = [1, 1, 1, 1];
-  save_to_pdf = 0;
   
   if (print_plots(1) == 1)
     % Plot element flows and demand
@@ -55,8 +54,8 @@ function y = plot_2pt1_simulation_results(output, N, S, input, sim)
     grid on;
     hold  off;
     if (save_to_pdf == 1)
-      print (hf1, 'plots/flows_n_demand_initial', '-dpdflatexstandalone');
-      system ('pdflatex plots/flows_n_demand_initial plots/flows_n_demand_initial');     
+      print (hf1, 'flows_n_demand_initial', '-dpdflatexstandalone');
+      system ('pdflatex flows_n_demand_initial');     
     end
   end
   
@@ -92,8 +91,8 @@ function y = plot_2pt1_simulation_results(output, N, S, input, sim)
     grid on;
     hold off;
     if (save_to_pdf == 1)
-      print (hf2, 'scheduling_plots/heads_initial', '-dpdflatexstandalone');
-      system ('pdflatex plots/heads_initial plots/heads_initial');     
+      print (hf2, 'heads_initial', '-dpdflatexstandalone');
+      system ('pdflatex heads_initial');     
     end
   end
   
@@ -124,8 +123,8 @@ function y = plot_2pt1_simulation_results(output, N, S, input, sim)
     grid;
     hold off;
     if (save_to_pdf == 1)
-      print (hf3, 'scheduling_plots/energy_consumption', '-dpdflatexstandalone');
-      system ('pdflatex plots/energy_consumption plots/energy_consumption');     
+      print (hf3, 'energy_consumption', '-dpdflatexstandalone');
+      system ('pdflatex energy_consumption');     
     end
   end
 
@@ -156,8 +155,8 @@ function y = plot_2pt1_simulation_results(output, N, S, input, sim)
     grid;
     hold off;
     if (save_to_pdf == 1)
-      print (hf3, 'scheduling_plots/schedule', '-dpdflatexstandalone');
-      system ('pdflatex plots/schedule plots/schedule');     
+      print (hf4, 'schedule', '-dpdflatexstandalone');
+      system ('pdflatex schedule');     
     end
   end
 

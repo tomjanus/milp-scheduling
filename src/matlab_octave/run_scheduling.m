@@ -11,7 +11,7 @@ function y = run_scheduling(plot_outputs)
   % Step 3 - Visualise simulation results
   if plot_outputs
     plot_2pt1_simulation_results(output,input.init_schedule.N, ...
-      input.init_schedule.S,input, sim)    
+      input.init_schedule.S,input, sim, 1)    
   end
   % Step 4 - Formulate linear program
   % Initialise continuous and binary variable structures
