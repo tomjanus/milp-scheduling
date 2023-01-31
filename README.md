@@ -1,5 +1,4 @@
 <div id="top"></div>
-# Mixed Integer Linear Optimal Pump Scheduler for Water Distribution Networks
 
 <!-- PROJECT LOGO -->
 <p align="center">
@@ -31,7 +30,7 @@ If you use MILOPS-WDN for academic research, please cite the library using the f
 ```
 @misc{milops-wdn2023,
  author = {Bogumil Ulanicki, Tomasz Janus},
- title = {MILOPS-WDN: Mixed Integer Linear Optimal Pump Scheduler in Water Distribution Networks},
+ title = {MILOPS-WDN: Mixed Integer Linear Optimal Pump Scheduler for Water Distribution Networks},
  year = {2023},
  url = {https://github.com/tomjanus/milp-scheduling},
 }
@@ -57,8 +56,8 @@ Project Link: [https://github.com/tomjanus/milp-scheduling](https://github.com/t
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/tomjanus"><img src="https://avatars.githubusercontent.com/tomjanus" width="100px;" alt=""/><br /><sub><b>Tomasz Janus</b></sub></a><br /><a href="https://github.com/tomjanus/reemission/commits?author=tomjanus" title="Code">💻</a><a href="https://github.com/tomjanus/reemission/commits?author=tomjanus" title="Tests">⚠️</a> <a href="https://github.com/tomjanus/reemission/issues/created_by/tomjanus" title="Bug reports">🐛</a><a href="#design-TJanus" title="Design">🎨</a><a href="" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/jojo0094"><img src="https://avatars.githubusercontent.com/jojo0094" width="100px;" alt=""/><br /><sub><b>Aung Kyaw Kyaw</b></sub></a><br /><a href="https://github.com/tomjanus/reemission/commits?author=jojo0094" title="Code">💻</a><a href="https://github.com/tomjanus/reemission/commits?author=jojo0094" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/tomjanus"><img src="https://avatars.githubusercontent.com/tomjanus" width="100px;" alt=""/><br /><sub><b>Tomasz Janus</b></sub></a><br /><a href="https://github.com/tomjanus/milp-scheduling/commits?author=tomjanus" title="Code">💻</a><a href="https://github.com/tomjanus/milp-scheduling/commits?author=tomjanus" title="Tests">⚠️</a> <a href="https://github.com/tomjanus/milp-scheduling/issues/created_by/tomjanus" title="Bug reports">🐛</a><a href="#design-TJanus" title="Design">🎨</a><a href="" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/bulanicki"><img src="https://avatars.githubusercontent.com/bulanicki" width="100px;" alt=""/><br /><sub><b>Prof. Bogumil Ulanicki</b></sub></a><br /><a href="https://github.com/tomjanus/milp-scheduling/commits?author=bulanicki" title="Code">💻</a><a href="https://github.com/tomjanus/milp-scheduling/commits?author=bulanicki" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
