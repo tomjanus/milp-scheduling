@@ -9,6 +9,6 @@ function out = linearize_pumps(pump_groups)
 
   out = cell(size(pump_groups));
   for i = 1:length(out)
-    out{i} = linearize_pump_characteristic(pump_groups{i});
+    out{i} = linearize_pump_characteristic(pump_groups(i).pump);
   end
 end
