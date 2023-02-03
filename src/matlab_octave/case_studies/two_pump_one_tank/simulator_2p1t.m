@@ -35,6 +35,7 @@ function output = simulator_2p1t(schedule, network, input, sim)
     s=schedule.S(k); % Get pump speed at time step k
     dk=input.df*input.demands(:,k); % Get scaled demand at time step k
     % Solve the network equations for time-step k
+    % hydraulics_2p1t(x0, n, s, dk, htt, input, network, pump)
     x=fsolve(@(x)hydraulics_2p1t(x, n, s, dk, htt, input, network, pump), x0);
     % Retrieve vector of pipe flows from solution x
     q(:,k)=x(1:network.ne);

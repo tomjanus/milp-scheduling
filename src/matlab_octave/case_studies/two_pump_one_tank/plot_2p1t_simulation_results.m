@@ -1,4 +1,4 @@
-function y = plot_2pt1_simulation_results(output, N, S, input, sim, save_to_pdf)
+function y = plot_2p1t_simulation_results(output, N, S, input, sim, save_to_pdf)
   % unpack the outputs structure
   q = output.q;
   hc = output.hc;

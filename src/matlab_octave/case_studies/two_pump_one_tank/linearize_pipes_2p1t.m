@@ -1,4 +1,4 @@
-function out = linearize_pipes_2pt1(network, sim_out)
+function out = linearize_pipes_2p1t(network, sim_out)
   % Wrapper for linearize_pipes configured for linearizing the 2pt1
   % case study model.
   rep_hr = 12;
