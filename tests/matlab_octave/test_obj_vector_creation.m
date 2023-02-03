@@ -13,14 +13,20 @@ function y = test_obj_vector_creation()
   test_network.nc = 4;
   test_network.npipes = 4;
   % TODO: should this be npumps or number of pump groups?
+  test_network.npg = 2;
   test_network.npumps = 2;
-  % Create a test vars structure
-  test_vars = initialise_var_structure(...
-    test_network, test_no_steps, 3, 4);
   
-  test_f_vector = set_objective_vector(...
-    test_vars, test_network, test_tarif_vec, test_time_step, test_no_steps, ...
-    sparse_out);
+  linprog.NO_PIPE_SEGMENTS =  3;
+  linprog.NO_PUMP_SEGMENTS =  4;
+  linprog.NO_PRED_STEPS =  24;
+  linprog.TIME_STEP =  1;
+  
+  % Create a test vars structure
+  test_vars = initialise_var_structure(test_network, linprog);
+  
+  test_input.tariff = test_tarif_vec;
+  
+  test_f_vector = set_objective_vector(test_vars, test_network, test_input, linprog, 1);
   
   % Check how many values in the test vector are greated than one and if the
   % number is equal to test_no_steps * test_network.npumps

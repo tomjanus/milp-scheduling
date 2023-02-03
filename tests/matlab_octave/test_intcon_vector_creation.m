@@ -11,12 +11,16 @@ function y = test_intcon_vector_creation()
   test_network.nc = 4;
   test_network.npipes = 4;
   % TODO: should this be npumps or number of pump groups?
+  test_network.npg = 2;
   test_network.npumps = 2;
 
   % TODO: TEST BOTH THE VECTOR AND TENSOR VAR STRUCTURES
+  linprog.NO_PIPE_SEGMENTS =  3;
+  linprog.NO_PUMP_SEGMENTS =  4;
+  linprog.NO_PRED_STEPS =  24;
+  linprog.TIME_STEP =  1;
   
-  vars = initialise_var_structure(...
-    test_network, 24, 3, 4);
+  vars = initialise_var_structure(test_network, linprog);
   no_vars_in_struct = var_struct_length(vars);
   fprintf('Number of variables in the variable struct = %d \n',...
           no_vars_in_struct);
