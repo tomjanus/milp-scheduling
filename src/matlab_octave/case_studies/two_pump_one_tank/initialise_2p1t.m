@@ -1,4 +1,4 @@
-function [input,const,linprog,network,sim] = initialise_2p1t()
+function [input,const,linprog,network,sim,pump_groups] = initialise_2p1t()
   %% Initialise data for the Simulator
   % Represents input data for simulating the network with the schematic
   % given below:
@@ -74,6 +74,7 @@ function [input,const,linprog,network,sim] = initialise_2p1t()
   pump1.hp = 40;
   pump1.smin = 0.7;
   pump1.smax = 1.2;
+  pump1.qint_smax = pump_intercept_flow(pump1, 1, pump1.smax); % Intercept flow at maximum pump speed
   pump1.max_eff_flow = 45;
   pump_groups(1).pump = pump1;
   pump_groups(1).npumps = 2;
