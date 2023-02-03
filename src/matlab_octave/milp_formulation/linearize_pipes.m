@@ -26,7 +26,7 @@ function out = linearize_pipes(network, sim_out, rep_hr, Upipes)
   for i = 1:no_pipes
     R = network.Rs(i);
     Upipe = Upipes(i);
-    q_op = q_sim(i, rep_hr);
+    q_op = abs(q_sim(i, rep_hr));
     out{i} = linearize_pipe_characteristic(R, q_op, Upipe);
   end
 end
