@@ -55,6 +55,7 @@ function [input,const,linprog,network,sim,pump_groups] = initialise_2p1t()
   linprog.NO_PRED_STEPS = 24; % Prediction horizon
   linprog.TIME_STEP = 1;
   linprog.Upower = 1000;
+  linprog.Upump = 100;
   
   %% NETWORK STRUCTURE AND NETWORK COMPONENTS
   % 1 PUMPS
