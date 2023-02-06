@@ -1,5 +1,8 @@
-function y = run_scheduling(plot_outputs)
+function [n,s] = run_scheduling(plot_outputs)
   %% Run a scheduling problem on a  two pump one tank network (2p1t)
+  % Set sparse to true - make it an argument later
+  sparse_out = 1;
+  
   if nargin < 1
     plot_outputs = false;
   end
@@ -31,18 +34,23 @@ function y = run_scheduling(plot_outputs)
   lin_pipes = linearize_pipes_2p1t(network, output);
   lin_pumps = linearize_pumps_2p1t(pump_groups);
   % Linearize the power consumption model
-  %lin_power = linearize_pump_power_2p1t(pump_groups, pump_flow_12, pump_speed_12);
-  % Linearize pump model with dummy constriants and domain vertices (as not relevant for linearization)
+  %l in_power = linearize_pump_power_2p1t(pump_groups, pump_flow_12, ...
+  %    pump_speed_12);
+  % Linearize pump model with dummy constriants and domain vertices 
+  % (as not relevant for linearization)
   constraint_signs = {'>', '<', '<', '>'};
   domain_vertices = {[0,0], [0,0], [0,0], [0,0]};
   lin_power = linearize_power_model(pump_groups(1).pump, pump_flow_12, pump_speed_12, ...
       domain_vertices, constraint_signs);
-  
-  % Set the equality constraints parameters Aeq and beq
-  
-  y.vars = vars;
-  y.lin_pipes = lin_pipes;
-  
+  % Set the inequality constraints A and b
+  [A, b] = set_A_b_matrices(vars, linprog, lin_power, lin_pipes, ...
+      lin_pumps, pump_groups, sparse_out);
+  % Set the equality constraints Aeq and beq
+  [Aeq, beq] = set_Aeq_beq_matrices(vars, network, input, lin_pipes,...
+      sparse_out);
+  % Run the MILP scheduler
+  [n, s]= scheduler(c_vector, intcon_vector, A, b, Aeq, beq, lb_vector, ...
+      ub_vector, vars)
 end
 
 
