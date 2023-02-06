@@ -22,6 +22,8 @@ function out = linearize_pump_characteristic(pump)
   q_int_smin = pump_intercept_flow(pump, 1, s_min);
   q_int_smax = pump_intercept_flow(pump, 1, s_max);
   % Define the boundary points
+  % Note: 1 in the function call specifies that pump head and pump intercept 
+  % flow are calculated for a single pump
   p1 = [q_min, s_min, pump_head(pump, q_min, 1, s_min)]; % min-min
   p2 = [q_min, s_max, pump_head(pump, q_min, 1, s_max)]; % min-max
   p3 = [q_int_smax , s_max, pump_head(pump, q_int_smax, 1, s_max)]; % max-max
@@ -33,6 +35,29 @@ function out = linearize_pump_characteristic(pump)
                       '<', '>', '<';...
                       '<', '<', '>'};
   domain_vertices = {p1, p2, p3, p4};
+  
+  %%%%%%%%%%%%%%%%%%%
+  % s ^
+  %   |                                    3. (qintmax, smax)
+  %   |                 x---------------------------x
+  %   |  2 (qmin, smax) |                          /
+  %   |                 |                         /
+  %   |                 |                        /
+  %   |                 |          o            /
+  %   |                 |         pn           /
+  %   |                 |     ^        \      /
+  %   |                 |    /          v    /
+  %   |                 |        <--        /
+  %   |                 x------------------x 
+  %   |  1 (qmin,smin)              4 (qintmin, smin)
+  %   |________________________________________________> q    
+  
+  % The domains on plane z = 0 are 
+  % In each subdomain the lines are calculated in order of:
+  % vertex1 - pn
+  % pn - vertex2
+  % vertex2 - vertex1
+  % as illustrated in the diagram above
   
   %% Currently only supports the tetrahedron linearization in create_tetrahedron
   out = create_tetrahedron(p1, p2, p3, p4, pn, constraint_signs);

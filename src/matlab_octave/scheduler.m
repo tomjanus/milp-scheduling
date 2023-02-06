@@ -1,5 +1,5 @@
 function [n, s]= scheduler(...
-  f_sparse,intcon,A1_sparse,b1_sparse,A1eq_sparse,b1eq_sparse,lb,ub,x0, vars)
+  f_sparse,intcon,A1_sparse,b1_sparse,A1eq_sparse,b1eq_sparse,lb,ub,vars)
   % Wrapper for MATLAB's intlinprog
   % Uses MILP formulation to solve a pump scheduling problem in WDNs
 
@@ -17,8 +17,9 @@ function [n, s]= scheduler(...
   % Return
   % Pump schedules: n, s
   
+  % Do not use x0
   [x1,fval,exitflag,output]= intlinprog(...
-    f_sparse,intcon,A1_sparse,b1_sparse,A1eq_sparse,b1eq_sparse,lb,ub,x0);
+    f_sparse,intcon,A1_sparse,b1_sparse,A1eq_sparse,b1eq_sparse,lb,ub);
 
   % Retrieve n and s vectors from x1
   n = zeros(size(vars.x_bin.n));
@@ -38,8 +39,4 @@ function [n, s]= scheduler(...
       s(i,j) = x1(lp_index_s);
     end
   end
-  
-  
-  
-  
 end

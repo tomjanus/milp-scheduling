@@ -58,9 +58,9 @@ function y = create_tetrahedron(p_1, p_2, p_3, p_4, p_a, inequality_signs)
       else
         p2 = vertices{1};
       end
-      [m_coeff, c_coeff] = get_line(p1, p2);
+      [m_x, m_y, c_coeff] = get_line_implicit(p1, p2);
       ineq_sign = inequality_signs{i, j};
-      y(i).constraints{j} = {[m_coeff, c_coeff], ineq_sign};
+      y(i).constraints{j} = {[m_x, m_y, c_coeff], ineq_sign};
     end
   end  
 end
