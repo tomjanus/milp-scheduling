@@ -18,7 +18,7 @@ The package first needs to be installed via the following script `src/matlab_oct
 The pump scheduling code composed of model initialisation, (nonlinear) model simulation with intitial schedule, MILP problem formulation and solution, and final simulation of the nonlinear model with the optimal schedule can be run via `src/matlab_octave/run_scheduling.m`
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+[GPL-3.0](https://choosealicense.com/licenses/gpl-3.0/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
