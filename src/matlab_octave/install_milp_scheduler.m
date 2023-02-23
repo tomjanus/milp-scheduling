@@ -148,11 +148,11 @@ function succ = install_milp_scheduler(modify, verbose)
           fprintf('MILP-SCHEDULER will be installed and ready to use.\n\n');
       end
   end
-  
-end
 
-if nargout
+  if nargout
     succ = success;
+  end
+  
 end
 
 function num = vstr2num(vstr)
