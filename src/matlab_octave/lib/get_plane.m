@@ -22,7 +22,7 @@ function [a, b, c] = get_plane(p1, p2, p3)
     n = cross(v1, v2');
     % Trick to make Octave and Matlab compatible because Octave returns a row
     % vector whilst Octave returns a column vector
-    if (size(n)(1) < size(n)(2))
+    if (size(n,1) < size(n,2))
       n = n';
     end
     % Find offset K
@@ -36,7 +36,6 @@ end
 
 function v = vector_from_points(p1, p2)
   % Return a vector from point p1 to point p2
-  n_dim = length(p1);
   if (length(p1) ~= length(p2))
     error('Points p1 and p2 have different dimensions');
   end

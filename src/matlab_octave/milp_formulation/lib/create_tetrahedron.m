@@ -41,7 +41,9 @@ function y = create_tetrahedron(p_1, p_2, p_3, p_4, p_a, inequality_signs)
     p2 = triangle_vertices{i,2};
     p3 = triangle_vertices{i,3};    
     [m_x1, m_x2, c] = get_plane(p1,p2,p3);
-    y(i).coeffs = [m_x1, m_x2, c];
+    y(i).coeffs(1) = m_x1;
+    y(i).coeffs(2) = m_x2;
+    y(i).coeffs(3) = c;
   end
   
   % Project point onto z = 0

@@ -312,11 +312,11 @@ function [Aeq_nodeq, beq_nodeq] = nodeq_constraints(vars, network, input)
       Aeq=vars;
       in_flows = find(Lc(j,:)==1);
       out_flows = find(Lc(j,:)==-1);
-      Aeqs.x_cont.qel(i,in_flows) = 1;
+      Aeq.x_cont.qel(i,in_flows) = 1;
       Aeq.x_cont.qel(i,out_flows) = -1;
       d_ji = input.demands(j,i);
       Aeq_nodeq(row_counter,:) = struct_to_vector(Aeq)';
-      beq_nodeq(i,j)=d_ji;
+      beq_nodeq(j,i)=d_ji;
       row_counter = row_counter + 1;
     end
   end
@@ -342,7 +342,7 @@ function [Aeq_pumpgroup, beq_pumpgroup] = pumpgroup_constraints(vars, network)
       npumps = network.pump_groups(j).npumps;
       Aeq.x_cont.qel(i,pump_group_index) = 1;
       Aeq.q_cont.q(i,pump_flow_index:npumps) = -1; 
-      beq_pumpgroup(i,j)=0;
+      beq_pumpgroup(j,i)=0;
       Aeq_pumpgroup(row_counter,:) = struct_to_vector(Aeq)';
       row_counter = row_counter + 1;
     end

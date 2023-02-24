@@ -56,7 +56,7 @@ function f_vector = set_objective_vector(vars, network, input, linprog, ...
   end
   
   f_vector = [struct_to_vector(f_struct, 'x_cont'); ...
-              struct_to_vector(f_struct, 'x_bint')];
+              struct_to_vector(f_struct, 'x_bin')];
   
   % Convert the output vector to its sparse representation, if required
   if (sparse_out == true)

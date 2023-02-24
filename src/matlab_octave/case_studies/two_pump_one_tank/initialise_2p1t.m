@@ -127,7 +127,7 @@ function [input,const,linprog,network,sim,pump_groups] = initialise_2p1t()
   network.nt = nt; % number of tanks
   network.nr = nr; % number of reservoirs
   network.nc = size(network.Lc,1); % number of calculated nodes
-  network.nf = size(network.Lf,1);; % number of fixed head nodes
+  network.nf = size(network.Lf,1); % number of fixed head nodes
   network.pipe_indices=[1;3;4;5]; % Pipe flow index for the simulator results
   network.pump_group_indices = [2];
   network.npipes = length(network.pipe_indices);
@@ -137,11 +137,11 @@ function [input,const,linprog,network,sim,pump_groups] = initialise_2p1t()
   network.elements.tank_feed_pipe_index = 4;
   
   % Find the total number of pumps
-  _npumps = 0;
+  npumps = 0;
   for i = 1:length(network.pump_groups)
-    _npumps = _npumps + network.pump_groups(i).npumps;
+    npumps = npumps + network.pump_groups(i).npumps;
   end
-  network.npumps = _npumps;
+  network.npumps = npumps;
   
   % Indices of calculated nodes, reexservoir nodes and tank nodes, respectively
   network.hc_indices=[1;2;3;4]; % Row number in network.L matrix
