@@ -9,7 +9,7 @@ function y = set_constraints_2p1t(network)
     % e.g. for different tanks or pumps.
     
     x_cont = struct();
-    y_cont = struct();
+    x_bin = struct();
     % Get tank from the network structure - there's only one tank in this case study
     tank = network.tanks(1);
 

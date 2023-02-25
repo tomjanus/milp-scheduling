@@ -96,7 +96,6 @@ function [A_p_lin, b_p_lin] = power_model_ineq_constraint(vars, lin_power, linpr
   end
   % Roll out the b vector
   b_lh = b_lh(:);
-  row_counter = 1;
 
   % RH inequality
   row_counter = 1;
@@ -355,7 +354,6 @@ function [A_pumpeq, b_pumpeq] = pump_equation_constraints(vars, linprog, ...
   b_lh = b_lh(:);
   
   %RHS inequality
-  row_counter = 1;
   row_counter = 1;
   for j = 1:no_pumps
     for k = 1:no_time_steps

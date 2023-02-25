@@ -23,10 +23,11 @@ function y = get_inequality(coeffs)
     error('Expected coeffs arguments needs to be an array of length 2. Length %d given', ...
           length(coeffs));
   end
-  if coeffs(0) == nan
+  if isnan(coeffs(0))
     y.var_index = 1;
     y.coeffs = [0, coeffs(2)];
   else
     y.var_index = 2;
     y.coeffs = coeffs;
+  end
 end

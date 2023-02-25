@@ -39,7 +39,7 @@ function y = create_stacked_triangles(...
   % Project the vertices on the plane z = 0
   triangle_vertices_2D = cell(size(triangle_vertices));
   for triangle = 1:size(triangle_vertices, 1)
-    for vertex in 1:size(triangle_vertices, 2)
+    for vertex = 1:size(triangle_vertices, 2)
       triangle_vertices_2D{triangle, vertex} = rem_z_coordinate(...
         triangle_vertices{triangle, vertex});
     end
@@ -62,7 +62,7 @@ function y = create_stacked_triangles(...
       if j<NO_VERTICES
         p2 = vertices{j+1};
       else
-        p2 = vertices{1}
+        p2 = vertices{1};
       end
       [m_coeff, c_coeff] = get_line(p1, p2);
       ineq_sign = inequality_signs{i, j};

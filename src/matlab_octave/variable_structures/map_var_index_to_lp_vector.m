@@ -9,8 +9,11 @@ function y = map_var_index_to_lp_vector(var_structure, var_name, var_index)
   % Args:
   %   var_structure - variable structue with continous and binary variables
   %   var_name - variable name
-  %   index - index within the variable vector
+  %   var_index - index within the variable vector (integer) or a cell of
+  %      subscripts, e.g. {2,4}
   
+  isaninteger = @(x)isfinite(x) & x==floor(x);
+
   % Returns index pointing to the variable in the vector x of MILP formulation
   fn=fieldnames(var_structure);
   % Loop through the fields
@@ -41,12 +44,22 @@ function y = map_var_index_to_lp_vector(var_structure, var_name, var_index)
       end
   end
   % Throw error if the requested field could not be found
-  if field_found ~= true;
-    error('Variable %s not found', var_name);
+  if field_found ~= true
+      error('Variable %s not found', var_name);
+  else
+      if iscell(var_index)
+          var_index_str = mat2str(cell2mat(var_index));
+          var_index = lin_index_from_array(...
+              var_structure.(field_name).(var_j_name), var_index);
+      end
+  end
+  if isaninteger(var_index)
+      var_index_str = int2str(var_index);
   end
   % Throw error if the requested index is beyond the vector's length
   if var_index > var_j_length
-    error('Index %d of field %s beyond range', var_index, var_name);
+    error('Index %s of field %s beyond range', var_index_str, var_name);
   end
+
   y = start_index + var_index;
 end

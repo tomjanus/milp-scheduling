@@ -14,7 +14,7 @@ function n_dim = number_of_dimensions(input_array, dim_squeeze)
   switch nargin
     case 1
        dim_squeeze = false;
-    end
+  end
 
   size_array = size(input_array);
   if dim_squeeze == true

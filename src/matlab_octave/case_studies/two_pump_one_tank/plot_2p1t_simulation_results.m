@@ -16,7 +16,8 @@ function y = plot_2p1t_simulation_results(output, N, S, input, sim, save_to_pdf)
   time_1=[0:sim.TIME_HORIZON];
   
   print_plots = [1, 1, 1, 1];
-  
+
+  y = 0;
   if (print_plots(1) == 1)
     % Plot element flows and demand
     hf1=figure();
@@ -159,5 +160,5 @@ function y = plot_2p1t_simulation_results(output, N, S, input, sim, save_to_pdf)
       system ('pdflatex schedule');     
     end
   end
-
+  y = 1;
 end

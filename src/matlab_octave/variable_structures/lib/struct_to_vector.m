@@ -1,10 +1,11 @@
 function var_vector = struct_to_vector(var_struct, var_type)
-  % Access all fields in a var struct and output a concatenated variable vector
+  % Access all fields in a var struct and output a concatenated variable 
+  % vector
   % Works individually for bin and continuous variables
   % Args:
   %   var_struct: var structure containing fields x_cont and x_bin
   %   var_type (Optional): specifies the type of variable which
-  %     length is to be calculated.
+  %     length is to be calculated, i.e. 'x_cont' or 'x_bin'
 
   if nargin == 2
     parsed_fields = {var_type};

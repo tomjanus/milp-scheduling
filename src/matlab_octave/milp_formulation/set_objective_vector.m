@@ -40,8 +40,6 @@ function f_vector = set_objective_vector(vars, network, input, linprog, ...
   end
   
   f_struct = vars;
-  f_cont = vars.x_cont;
-  f_bin = vars.x_bin;
   
   if no_steps > length(tariff_vec)
     error('Number of scheduling steps greater than the length of the tariff');

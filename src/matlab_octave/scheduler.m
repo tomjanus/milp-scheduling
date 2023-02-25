@@ -19,11 +19,12 @@ function [n, s]= scheduler(...
   
   % Do not use x0
   options = optimoptions('intlinprog', 'Heuristics','advanced', 'IntegerPreprocess','advanced');
-  intcon = [];
+  lb = ones(size(lb)) * -inf;
+  ub = ones(size(lb)) * inf;
   x0 = [];
   [x1,fval,exitflag,output]= intlinprog(...
     f_sparse,intcon,A1_sparse,b1_sparse,A1eq_sparse,b1eq_sparse,lb,ub,x0,options);
-
+  disp(x1)
 
   if exitflag >= 1
       % Retrieve n and s vectors from x1
