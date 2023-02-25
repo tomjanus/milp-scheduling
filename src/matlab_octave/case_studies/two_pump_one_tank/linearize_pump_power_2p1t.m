@@ -1,4 +1,4 @@
-function out = linearize_pump_power_2p1t(ump_groups, q_op, s_op)
+function out = linearize_pump_power_2p1t(pump_groups, q_op, s_op)
   % Wrapper for linearize_pumps configured for linearizing the 2pt1
   % case study model.
   % Currently, just callse the linearize_pumps model but it's
