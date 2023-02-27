@@ -1,7 +1,7 @@
 function array_indices = get_array_indices(input_array)
     % Output a Nx1 cell with indices pointing to all elements of
     % a multidimensional array
-    array_size = size(input_array)
+    array_size = size(input_array);
     index_vectors = cell(length(array_size), 1);
     for n_dim = 1:length(array_size)
         index_vectors{n_dim} = 1:array_size(n_dim);
