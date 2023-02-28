@@ -96,3 +96,6 @@ manuscript/
 src/matlab/outtakes_nogit/
 plots/
 *.mat
+
+# Debugging reports
+*.report

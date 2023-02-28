@@ -9,7 +9,6 @@ function y = map_lp_vector_index_to_var(var_structure, var_index)
   % Args:
   %   var_structure - variable structue with continous and binary variables
   %   var_index - index within the linprog variable vector
-
   parsed_fields = {'x_cont', 'x_bin'};
   
   % Initialize the output structure
@@ -31,6 +30,7 @@ function y = map_lp_vector_index_to_var(var_structure, var_index)
           lb_index = start_index;
           end_index = start_index + var_j_length;
           if var_index > lb_index && var_index <= end_index
+              % (Sub)field found
               y.field_name = field_name;
               y.subfield_name = var_j_name;
               n_array_dim = number_of_dimensions(subfield_array);
@@ -50,8 +50,6 @@ function y = map_lp_vector_index_to_var(var_structure, var_index)
               return
           end
           start_index = end_index;
-      end        
+      end
   end
 end
-
-  % Returns index pointing to the variable in the vector x of MILP formulation
