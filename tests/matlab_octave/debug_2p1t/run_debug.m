@@ -18,9 +18,9 @@ constraints = set_constraints_2p1t(network);
 lin_pipes = linearize_pipes_2p1t(network, output);
 lin_pumps = linearize_pumps_2p1t(pump_groups);
 % Linearize the power consumption model
-%l in_power = linearize_pump_power_2p1t(pump_groups, pump_flow_12, ...
+% lin_power = linearize_pump_power_2p1t(pump_groups, pump_flow_12, ...
 %    pump_speed_12);
-% Linearize pump model with dummy constriants and domain vertices 
+% Linearize pump model with dummy constraints and domain vertices 
 % (as not relevant for linearization)
 constraint_signs = {'>', '<', '<', '>'};
 domain_vertices = {[0,0], [0,0], [0,0], [0,0]};
@@ -33,7 +33,10 @@ lin_power = linearize_power_model(pump_groups(1).pump, pump_flow_12, pump_speed_
 [Aeq, beq] = set_Aeq_beq_matrices(vars, network, sim_input, lin_pipes,...
     sparse_out);
     
-% Run tests
-% Check if the vector of constraints matches the variables
-verify_c_vector_indices(c_vector, vars)
-check_intcon_indices(intcon_vector, vars)
+% Run checks and generate reports for manual inspection and debugging
+check_inequality_constraints(vars, linprog, lin_power, lin_pipes, lin_pumps, pump_groups);
+check_equality_constraints(network, vars, lin_pipes, sim_input);
+check_intcon_vector(intcon_vector, vars);
+check_c_vector(c_vector, vars);
+check_lb_vector(lb_vector, vars);
+check_ub_vector(ub_vector, vars);
