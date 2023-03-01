@@ -3,6 +3,7 @@ a collection of .report text files."""
 from typing import List
 import argparse
 import logging
+import io
 import os
 from fpdf import FPDF
 
@@ -21,7 +22,8 @@ def find_files(dir_path: str, ext: str) -> List[str]:
 
 
 def write_lines_to_pdf_cell(
-        file_handle, pdf_object: FPDF, line_width: int = 5) -> None:
+        file_handle: io.TextIOWrapper, pdf_object: FPDF, 
+        line_width: int = 5) -> None:
     """ """
     for line in file_handle:
         pdf_object.cell(0, line_width, ln=1, txt=line)
