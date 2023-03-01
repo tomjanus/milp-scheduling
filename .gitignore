@@ -99,3 +99,7 @@ plots/
 
 # Debugging reports
 *.report
+
+# Pyenv version files
+.python-version
+
