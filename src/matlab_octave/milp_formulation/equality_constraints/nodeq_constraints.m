@@ -7,7 +7,7 @@ function [Aeq_nodeq, beq_nodeq] = nodeq_constraints(vars, network, input)
   number_time_steps = size(vars.x_cont.qel,1);
   % Initialize output arrays
   Aeq_nodeq = zeros(no_equalities*number_time_steps, var_struct_length(vars));
-  beq_nodeq = zeros(no_equalities, number_time_steps);
+  beq_nodeq = zeros(no_equalities, number_time_steps)';
   row_counter = 1;
   for j = 1:no_equalities
     for i = 1:number_time_steps
@@ -18,9 +18,9 @@ function [Aeq_nodeq, beq_nodeq] = nodeq_constraints(vars, network, input)
       Aeq.x_cont.qel(i,out_flows) = -1;
       d_ji = input.demands(j,i);
       Aeq_nodeq(row_counter,:) = struct_to_vector(Aeq)';
-      beq_nodeq(j,i)=d_ji;
+      beq_nodeq(i,j)=d_ji;
       row_counter = row_counter + 1;
     end
   end
-  beq_nodeq = beq_nodeq(:);
+  beq_nodeq = tensor_to_vector(beq_nodeq); %beq_nodeq(:);
 end
