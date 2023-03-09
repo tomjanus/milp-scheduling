@@ -55,7 +55,7 @@ function [A_pumpeq, b_pumpeq] = pump_equation_constraints(vars, linprog, ...
       row_counter = row_counter + 1;
     end
   end
-  b_lh = b_lh(:);
+  b_lh = tensor_to_vector(b_lh);
   
   %RHS inequality
   row_counter = 1;
@@ -77,7 +77,7 @@ function [A_pumpeq, b_pumpeq] = pump_equation_constraints(vars, linprog, ...
       row_counter = row_counter + 1;
     end
   end 
-  b_rh = b_rh(:);
+  b_rh = tensor_to_vector(b_rh);
 
   A_pumpeq = [A_lh; A_rh];
   b_pumpeq = [b_lh; b_rh];

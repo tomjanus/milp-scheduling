@@ -37,7 +37,7 @@ function [A_qq_box, b_qq_box] = qq_box_lin_constraints(vars, pump_groups, linpro
       
       for k = 1:number_time_steps
         Aineq = vars;
-        Aineq.x_cont.ss(i,k,j) = 1;
+        Aineq.x_cont.qq(i,k,j) = 1;
         Aineq.x_bin.aa(i,k,j) = -qmax;
         b_rh(k,j,i) = 0;
         A_rh(row_counter,:) = struct_to_vector(Aineq)';
