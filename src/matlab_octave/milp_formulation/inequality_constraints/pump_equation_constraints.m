@@ -46,9 +46,9 @@ function [A_pumpeq, b_pumpeq] = pump_equation_constraints(vars, linprog, ...
       % Get the linearized pump characteristics for all discretized regions
       for i = 1:no_segments
         coeffs = lin_pump_model(i).coeffs;
-        A_ineq.x_cont.qq(i,k,j) = coeffs(1);
-        A_ineq.x_cont.ss(i,k,j) = coeffs(2);
-        A_ineq.x_bin.aa(i,k,j) = coeffs(3);
+        Aineq.x_cont.qq(i,k,j) = coeffs(1);
+        Aineq.x_cont.ss(i,k,j) = coeffs(2);
+        Aineq.x_bin.aa(i,k,j) = coeffs(3);
       end
       b_lh(k,j) = linprog.Upump;
       A_lh(row_counter,:) = struct_to_vector(Aineq)';
@@ -68,9 +68,9 @@ function [A_pumpeq, b_pumpeq] = pump_equation_constraints(vars, linprog, ...
       % Get the linearized pump characteristics for all discretized regions
       for i = 1:no_segments
         coeffs = lin_pump_model(i).coeffs;
-        A_ineq.x_cont.qq(i,k,j) = -coeffs(1);
-        A_ineq.x_cont.ss(i,k,j) = -coeffs(2);
-        A_ineq.x_bin.aa(i,k,j) = -coeffs(3);  
+        Aineq.x_cont.qq(i,k,j) = -coeffs(1);
+        Aineq.x_cont.ss(i,k,j) = -coeffs(2);
+        Aineq.x_bin.aa(i,k,j) = -coeffs(3);  
       end
       b_rh(k,j) = linprog.Upump;
       A_rh(row_counter,:) = struct_to_vector(Aineq)';
