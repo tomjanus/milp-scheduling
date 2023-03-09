@@ -18,6 +18,7 @@ function [Aeq_dhpipe, beq_dhpipe] = pipe_headloss_constraints(vars, network, ...
   number_segments = size(vars.x_cont.ww, 1);
   % Prepare incidence matrices without non-pipe elements
   % TODO: MAKE THIS CODE WORK WITH MORE THAN ONE PUMP GROUP
+  % Remove column(s) from incidence matrices that correspond to pump group elements
   Lc = remove_columns(network.Lc, network.pump_group_indices(1));
   Lf = remove_columns(network.Lf, network.pump_group_indices(1));
   L = combine_incidence_matrices(Lc, Lf);
@@ -32,32 +33,35 @@ function [Aeq_dhpipe, beq_dhpipe] = pipe_headloss_constraints(vars, network, ...
     index_down_head = find(L.matrix(:,j)==1);
     for i = 1:number_time_steps
       Aeq = vars;
+      beq = 0;
       % This bit is not generic, and repetitive
-      % TODO: fi[Aeq_aa, beq_aa] = aa_constraints(vars)x later with a better data structure
-      switch index_up_head
-        case num2cell(1:L.limits.Lc(end))
-          Aeq.x_cont.hc(i,j) = 1;
-          beq = 0;
-        case L.limits.Lf(1)
-          % reservoir
-          Aeq.x_cont.ht(i) = 1;
-          beq = 0;
-        case L.limits.Lf(1) + 1
-          % tank
-          beq = - input.hr;
+      % TODO: Provide a structure that contains information about which indices
+      % Correspond to pipes/other elements and calculated nodes/tank nodes/reservoir nodes
+      if (index_up_head <= L.limits.Lc(end)) && (index_up_head >= 1)
+        Aeq.x_cont.hc(i,j) = 1;
+        beq = 0;
+      elseif (index_up_head == L.limits.Lf(1))
+        % Reservoir
+        beq = - input.hr;
+      elseif (index_up_head == L.limits.Lf(2))
+        % Tank
+        Aeq.x_cont.ht(i) = 1;
+        beq = 0;
+      else
+        error("Encountered unknown index %d in the incidence matrix", index_up_head);
       end
-
-      switch index_down_head
-        case num2cell(1:L.limits.Lc(end))
-          Aeq.x_cont.hc(i,j) = -1;
-          beq = 0;
-        case L.limits.Lf(1)
-          % reservoir
-          Aeq.x_cont.ht(i) = -1;
-          beq = 0;
-        case L.limits.Lf(1) + 1
-          % tank
-          beq = input.hr;
+      
+      % Same as above, but for downstream node indices
+      if (index_down_head <= L.limits.Lc(end)) && (index_down_head >= 1)
+        Aeq.x_cont.hc(i,j) = -1;
+        beq = beq + 0;
+      elseif (index_down_head == L.limits.Lf(1))
+        beq = beq + input.hr;
+      elseif (index_down_head == L.limits.Lf(2))
+        Aeq.x_cont.ht(i) = -1;
+        beq = beq + 0;
+      else
+        error("Encountered unknown index %d in the incidence matrix", index_down_head);
       end
 
       for k = 1:number_segments
@@ -74,5 +78,5 @@ function [Aeq_dhpipe, beq_dhpipe] = pipe_headloss_constraints(vars, network, ...
     end
   end
   % Roll out the beq vector
-  beq_dhpipe = beq_dhpipe(:);
+  beq_dhpipe = tensor_to_vector(beq_dhpipe);
 end

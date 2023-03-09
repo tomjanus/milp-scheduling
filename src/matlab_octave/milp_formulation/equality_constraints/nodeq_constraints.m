@@ -16,7 +16,7 @@ function [Aeq_nodeq, beq_nodeq] = nodeq_constraints(vars, network, input)
       out_flows = find(Lc(j,:)==-1);
       Aeq.x_cont.qel(i,in_flows) = 1;
       Aeq.x_cont.qel(i,out_flows) = -1;
-      d_ji = input.demands(j,i);
+      d_ji = input.demands(j,i) * input.df;
       Aeq_nodeq(row_counter,:) = struct_to_vector(Aeq)';
       beq_nodeq(i,j)=d_ji;
       row_counter = row_counter + 1;
