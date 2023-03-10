@@ -57,11 +57,7 @@ function succ = install_milp_scheduler(modify, verbose)
   %% get path to new installation root. Obtain root folder, file_name and extension
   [root, n, e] = fileparts(which('install_milp_scheduler'));
   %% Check whether the user uses MATLAB or Octave
-  if exist('OCTAVE_VERSION', 'builtin') == 5
-      sw = 'Octave';
-  else
-      sw = 'MATLAB';
-  end
+  sw = get_system();
 
   %% Check for the required version of MATLAB or Octave
   vstr = '';
