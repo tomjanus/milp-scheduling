@@ -38,7 +38,7 @@ function [Aeq_dhpipe, beq_dhpipe] = pipe_headloss_constraints(vars, network, ...
       % TODO: Provide a structure that contains information about which indices
       % Correspond to pipes/other elements and calculated nodes/tank nodes/reservoir nodes
       if (index_up_head <= L.limits.Lc(end)) && (index_up_head >= 1)
-        Aeq.x_cont.hc(i,j) = 1;
+        Aeq.x_cont.hc(i,index_up_head) = 1;
         beq = 0;
       elseif (index_up_head == L.limits.Lf(1))
         % Reservoir
@@ -50,10 +50,9 @@ function [Aeq_dhpipe, beq_dhpipe] = pipe_headloss_constraints(vars, network, ...
       else
         error("Encountered unknown index %d in the incidence matrix", index_up_head);
       end
-      
       % Same as above, but for downstream node indices
       if (index_down_head <= L.limits.Lc(end)) && (index_down_head >= 1)
-        Aeq.x_cont.hc(i,j) = -1;
+        Aeq.x_cont.hc(i,index_down_head) = -1;
         beq = beq + 0;
       elseif (index_down_head == L.limits.Lf(1))
         beq = beq + input.hr;
