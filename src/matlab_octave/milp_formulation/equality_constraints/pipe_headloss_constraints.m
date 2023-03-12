@@ -64,8 +64,8 @@ function [Aeq_dhpipe, beq_dhpipe] = pipe_headloss_constraints(vars, network, ...
       end
 
       for k = 1:number_segments
-        m = lin_pipes{1}(k).coeffs.m;
-        c = lin_pipes{1}(k).coeffs.c;
+        m = lin_pipes{j}(k).coeffs.m;
+        c = lin_pipes{j}(k).coeffs.c;
         Aeq.x_cont.ww(k,i,j) = -m;
         Aeq.x_bin.bb(k,i,j) = -c;
       end
