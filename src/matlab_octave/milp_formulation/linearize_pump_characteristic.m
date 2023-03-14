@@ -32,7 +32,7 @@ function out = linearize_pump_characteristic(pump)
   % Specify a cell with constraint signs
   constraint_signs = {'>', '<', '>';...
                       '>', '>', '<';...
-                      '<', '>', '<';...
+                      '<', '>', '>';...
                       '<', '<', '>'};
   domain_vertices = {p1, p2, p3, p4};
   
@@ -40,13 +40,13 @@ function out = linearize_pump_characteristic(pump)
   % s ^
   %   |                                    3. (qintmax, smax)
   %   |                 x---------------------------x
-  %   |  2 (qmin, smax) |                          /
+  %   |  2 (qmin, smax) |             (2)          /
   %   |                 |                         /
   %   |                 |                        /
-  %   |                 |          o            /
+  %   |                 |   (1)    o       (3)  /
   %   |                 |         pn           /
   %   |                 |     ^        \      /
-  %   |                 |    /          v    /
+  %   |                 |    /    (4)   v    /
   %   |                 |        <--        /
   %   |                 x------------------x 
   %   |  1 (qmin,smin)              4 (qintmin, smin)
