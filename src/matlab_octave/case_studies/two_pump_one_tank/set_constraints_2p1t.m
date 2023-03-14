@@ -14,14 +14,14 @@ function y = set_constraints_2p1t(network)
     tank = network.tanks(1);
 
     x_cont.ht = [tank.elevation+tank.x_min, tank.elevation+tank.x_max];
-    x_cont.hc = [205, 240];
-    x_cont.qel = [-80, 80];
-    x_cont.ww = [-80, 80];
-    x_cont.ss = [0.7, 1.2];
-    x_cont.qq = [0, 80];
-    x_cont.q = [0, 80];
-    x_cont.p = [0, 10];
-    x_cont.s = [0.7, 1.2];
+    x_cont.hc = [205, 240];  
+    x_cont.qel = [-150, 150];
+    x_cont.ww = [-150, 150];
+    x_cont.ss = [0, 1.2];
+    x_cont.qq = [0, 120];
+    x_cont.q = [0, 120];
+    x_cont.p = [0, 100];
+    x_cont.s = [0.0, 1.2];
 
     x_bin.bb = [0, 1];
     x_bin.aa = [0, 1];
