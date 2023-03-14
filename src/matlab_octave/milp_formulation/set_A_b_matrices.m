@@ -4,14 +4,14 @@ function [A, b] = set_A_b_matrices(vars, linprog, lin_power, lin_pipes, ...
   [A_p, b_p] = power_ineq_constraint(vars, linprog);
   [A_p_lin, b_p_lin] = power_model_ineq_constraint(vars, lin_power, linprog);
   [A_pipe, b_pipe] = pipe_flow_segment_constraints(vars, lin_pipes, linprog);
-  [A_ss_box, b_ss_box] = ss_box_lin_constraints(vars, pump_groups, linprog);
-  [A_qq_box, b_qq_box] = qq_box_lin_constraints(vars, pump_groups, linprog);
+  [A_s_box, b_s_box] = s_box_constraints(vars, pump_groups, linprog);
+  [A_q_box, b_q_box] = q_box_constraints(vars, pump_groups, linprog);
   [A_pumpeq, b_pumpeq] = pump_equation_constraints(vars, linprog, lin_pumps);
   [A_pump_domain, b_pump_domain] = pump_domain_constraints(vars, linprog, ...
       lin_pumps);
     
-  A = [A_p; A_p_lin; A_pipe; A_ss_box; A_qq_box; A_pumpeq; A_pump_domain];
-  b = [b_p; b_p_lin; b_pipe; b_ss_box; b_qq_box; b_pumpeq; b_pump_domain];
+  A = [A_p; A_p_lin; A_pipe; A_s_box; A_q_box; A_pumpeq; A_pump_domain];
+  b = [b_p; b_p_lin; b_pipe; b_s_box; b_q_box; b_pumpeq; b_pump_domain];
   
   
   if (sparse_out == true)
