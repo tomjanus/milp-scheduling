@@ -32,23 +32,23 @@ function [A_pumpeq, b_pumpeq] = pump_equation_constraints(vars, linprog, ...
   % Currently, only one pump group is supported
   lin_pump_model = lin_pumps{1};
   
-  index_hup = 1; % in hc
-  index_hdown = 2; % in hc
+  index_hdown = 1; % in hc
+  index_hup = 2; % in hc
 
   %LHS inequality
   row_counter = 1;
   for j = 1:no_pumps
     for k = 1:no_time_steps
       Aineq = vars;
-      Aineq.x_cont.hc(k, index_hup) = -1;
-      Aineq.x_cont.hc(k, index_hdown) = 1;
+      Aineq.x_cont.hc(k, index_hup) = 1;
+      Aineq.x_cont.hc(k, index_hdown) = -1;
       Aineq.x_bin.n(k,j) = linprog.Upump;
       % Get the linearized pump characteristics for all discretized regions
       for i = 1:no_segments
         coeffs = lin_pump_model(i).coeffs;
-        Aineq.x_cont.qq(i,k,j) = coeffs(1);
-        Aineq.x_cont.ss(i,k,j) = coeffs(2);
-        Aineq.x_bin.aa(i,k,j) = coeffs(3);
+        Aineq.x_cont.qq(i,k,j) = -coeffs(1);
+        Aineq.x_cont.ss(i,k,j) = -coeffs(2);
+        Aineq.x_bin.aa(i,k,j) = -coeffs(3);
       end
       b_lh(k,j) = linprog.Upump;
       A_lh(row_counter,:) = struct_to_vector(Aineq)';
@@ -62,15 +62,15 @@ function [A_pumpeq, b_pumpeq] = pump_equation_constraints(vars, linprog, ...
   for j = 1:no_pumps
     for k = 1:no_time_steps
       Aineq = vars;
-      Aineq.x_cont.hc(k, index_hup) = 1;
-      Aineq.x_cont.hc(k, index_hdown) = -1;
+      Aineq.x_cont.hc(k, index_hup) = -1;
+      Aineq.x_cont.hc(k, index_hdown) = 1;
       Aineq.x_bin.n(k,j) = linprog.Upump;
       % Get the linearized pump characteristics for all discretized regions
       for i = 1:no_segments
         coeffs = lin_pump_model(i).coeffs;
-        Aineq.x_cont.qq(i,k,j) = -coeffs(1);
-        Aineq.x_cont.ss(i,k,j) = -coeffs(2);
-        Aineq.x_bin.aa(i,k,j) = -coeffs(3);  
+        Aineq.x_cont.qq(i,k,j) = coeffs(1);
+        Aineq.x_cont.ss(i,k,j) = coeffs(2);
+        Aineq.x_bin.aa(i,k,j) = coeffs(3);  
       end
       b_rh(k,j) = linprog.Upump;
       A_rh(row_counter,:) = struct_to_vector(Aineq)';
