@@ -2,7 +2,7 @@ function [Aeq_dhpipe, beq_dhpipe] = pipe_headloss_constraints(vars, network, ...
     input, lin_pipes)
   % Applies the pipe headloss equality condition for each pipe j and each time
   % step k
-  % h_o^j(k) − h_d^j (k) − sum_i {m_i^j * ww_i^j} - sum_i {c_i^j * bb_i^j} = 0
+  % h_o^j (k) − h_d^j (k) − \sum_{i=1}^{n_{seg}} {m_i^j \, ww_i^j} - \sum_{i=1}^n_{seg}} {c_i^j \, bb_i^j} = 
   
   % Args:
   % vars: variables structure with the variables that are ultimately converted

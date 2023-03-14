@@ -1,7 +1,7 @@
 function [Aeq_qpipe, beq_qpipe] = ww_constraints(vars, network)
   % For each pipe the flow qel that represents a pipe (note: qel represents 
   % flows in pipes and pump groups) has to be equal to the sum of segment flows 
-  % qpipe_j(k) - \sum_i w{i,j}(k) = 0 for all pipe segments i for all pipes j
+  % qpipe_j(k) - \sum_i ww{i,j}(k) = 0 for all pipe segments i for all pipes j
   % and all time steps k = 1 : K
   % where qpipe(j) = qel(pipe_indices(j)), i.e. pipe flows are stored within the
   % vector of elements flows qel

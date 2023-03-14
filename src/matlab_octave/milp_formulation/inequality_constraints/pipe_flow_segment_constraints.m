@@ -1,5 +1,5 @@
 function [A_pipe, b_pipe] = pipe_flow_segment_constraints(vars, lin_pipes, linprog)
-  % Set the inequality constraints for pipr segment flows
+  % Set the inequality constraints for pipe segment flows
   % bb(i,k,j) * q*(i-1,j) <= ww(i,k,j) <= bb(i,k,j) * q*(i,j)
   % where q* flows are the boundary points defining the `domains` of validity
   % for each segment in the linearized pipe characteristic.

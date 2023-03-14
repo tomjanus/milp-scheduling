@@ -1,7 +1,7 @@
 function [Aeq_nodeq, beq_nodeq] = nodeq_constraints(vars, network, input)
-  % Apply flow constraints to all nodal flows
+  % Apply flow mass balance constraints in all nodes
   % For every node j for all time steps k = 1 .. N 
-  %                               \sum q_{in}^j (k) + \sum q_{out}^j (k) = 0 
+  % \sum q_{in}^j (k) - \sum q_{out}^j (k) = 0 
   Lc = network.Lc;
   no_equalities = size(Lc,1);
   number_time_steps = size(vars.x_cont.qel,1);
