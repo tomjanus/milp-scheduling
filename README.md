@@ -15,8 +15,9 @@ This repository is currently suited for research purposes only. It was created t
 ### Methodology
 Solution of the pump scheduling problem using mixed integer linear programming follows a methodology illustrated below.
 <p align="center">
-  <img width="800" src="https://user-images.githubusercontent.com/8837107/225382467-6eb2f7d2-88c2-46d3-99e8-968cb9919d31.png">
+  <img width="800" src="https://user-images.githubusercontent.com/8837107/225469001-c06c087b-7960-4229-b05b-a43d307a13fd.png">
 </p>
+
 First, the network is solved using initial schedules in order to obtain approximate operating points that can assist in model linearization.
 Second, nonlinear network componentes are linearized using linear and piecewise linear approximations. The nonlinear model components are pipe characteristics, pump characteristics and pump power consumption models. Subsequently, the model is implemented as a mixed integer linear problem of the following form and solved for a time horizon of K=24 hours.
 
@@ -129,17 +130,17 @@ To see a human-readable representation of the linear programme cost function and
 ## Case study
 The case study uses a simple network with two identical pumps in parallel and one tank, shown below.
 <p align="center">
-  <img width="600" src="https://user-images.githubusercontent.com/8837107/225413709-310ebe7e-2ad4-45d0-9ddb-612b1b1abd28.svg">
+  <img width="600" src="https://user-images.githubusercontent.com/8837107/225469098-78fdbaa2-270f-4b79-9b6d-182627d32920.svg">
 </p>
 
 ### Pump schedules
-![schedule_compared](https://user-images.githubusercontent.com/8837107/225461927-48425ee1-1273-4619-8459-1fdf91a239e4.svg)
+![schedule_compared](https://user-images.githubusercontent.com/8837107/225469274-9a0031d5-3bd0-4044-ae8a-5afe834e0d6e.svg)
 ### Flows in selected elements
-![flows_compared](https://user-images.githubusercontent.com/8837107/225458694-d2bfaae8-1de4-4922-b8e8-80390d0a04fd.svg)
+![flows_compared](https://user-images.githubusercontent.com/8837107/225469312-8e59c44b-068d-4298-9a48-43ed96aadd8e.svg)
 ### Heads at selected nodes
-![heads_compared](https://user-images.githubusercontent.com/8837107/225460615-0b042eb6-7211-4c1e-b427-ac1c04e2b8ed.svg)
+![heads_compared](https://user-images.githubusercontent.com/8837107/225469461-4d645b7e-7663-4cb7-9bf5-d01f8d5f9d56.svg)
 ### Operating cost
-![cost_compared](https://user-images.githubusercontent.com/8837107/225465954-835f52e3-2689-4188-8dbb-0cd4dbdbd2f8.svg)
+![cost_compared](https://user-images.githubusercontent.com/8837107/225469386-4f7fa3e4-a97c-4231-a5a6-37b0de04a87a.svg)
 
 ## License
 [GPL-3.0](https://choosealicense.com/licenses/gpl-3.0/)
