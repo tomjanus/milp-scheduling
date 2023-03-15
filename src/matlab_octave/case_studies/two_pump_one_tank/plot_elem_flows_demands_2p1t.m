@@ -1,9 +1,9 @@
-function y = plot_elem_flows_demands_2p1t(time_horizon, input, q3, q4, q5, file_name, save_to_pdf)
+function y = plot_elem_flows_demands_2p1t(time_horizon, input, q3, q4, q5, file_name, plot_title, save_to_pdf)
     % Plot element flows from the two pump one tank system
-    AXIS_FONTSIZE = 22;
+    AXIS_FONTSIZE = 18;
     ANNOTATION_FONTSIZE = 20;
-    LABEL_FONTSIZE = 25;
-    TITLE_FONTSIZE = 28;
+    LABEL_FONTSIZE = 21;
+    TITLE_FONTSIZE = 24;
     LEGEND_FONTSIZE = 18;
     y = 0;
     % Plot element flows and demand
@@ -25,7 +25,7 @@ function y = plot_elem_flows_demands_2p1t(time_horizon, input, q3, q4, q5, file_
     'MarkerSize', 8, ...
     'MarkerFaceColor', [1 1 1]);
     xticks(0:1:time_horizon);
-    title('Flow in selected elements', 'fontsize', TITLE_FONTSIZE,...
+    title(plot_title, 'fontsize', TITLE_FONTSIZE,...
       'interpreter', 'latex');
     ll = legend('$q_3$ - pump','$q_4$ - tank feed','$q_5$ - demand supply', ...
       'forced demand');
@@ -40,6 +40,7 @@ function y = plot_elem_flows_demands_2p1t(time_horizon, input, q3, q4, q5, file_
       'interpreter', 'latex');
     set(gca,'fontsize', AXIS_FONTSIZE)
     xlim([0 time_horizon])
+    ylim([-80 80])
     xticks([0:2:time_horizon])
     grid on;
     hold  off;
