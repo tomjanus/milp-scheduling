@@ -103,3 +103,5 @@ plots/
 # Pyenv version files
 .python-version
 
+# Outputs
+outputs/

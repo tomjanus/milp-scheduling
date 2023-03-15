@@ -14,6 +14,7 @@ function spump_vec = get_pump_speeds(x_vector, vars, no_pumps)
             if n == 1
                 pumps_on = pumps_on + 1;
                 s_pump = s_pump + s;
+            end
         end
         if pumps_on == 0
             pumps_on = 1;

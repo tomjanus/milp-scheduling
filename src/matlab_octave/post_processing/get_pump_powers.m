@@ -14,6 +14,7 @@ function power_vec = get_pump_powers(x_vector, vars, no_pumps)
             if n == 1
                 pumps_on = pumps_on + 1;
                 p_pump = p_pump + p;
+            end
         end
         power_vec(i) = p_pump;
     end
