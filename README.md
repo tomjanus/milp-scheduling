@@ -97,11 +97,11 @@ which can translates into
 ### Component linearizations
 [provide link]
 ### Objective function
-[provide link]
+see documentation [here](src/matlab_octave/milp_formulation/README.md)
 ### Equality constraints
-[provide link]
+see documentation [here](src/matlab_octave/milp_formulation/equality_constraints/README.md)
 ### Inequality constraints
-[provide link]
+see documentation [here](src/matlab_octave/milp_formulation/inequality_constraints/README.md)
 ## Installation
 The package requires to be installed prior to use. To install the package, execute 
 ```matlab
