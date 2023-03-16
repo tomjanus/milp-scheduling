@@ -94,9 +94,7 @@ which can translates into
 \end{equation}
 ```
 ## Formulation of the mixed integer linear programme
-### Component linearizations
-[provide link]
-### Objective function
+### Objective function and component linearizations
 see documentation [here](src/matlab_octave/milp_formulation/README.md)
 ### Equality constraints
 see documentation [here](src/matlab_octave/milp_formulation/equality_constraints/README.md)
