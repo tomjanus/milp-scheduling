@@ -15,7 +15,7 @@ This repository is currently suited for research purposes only. It was created t
 ### Methodology
 Solution of the pump scheduling problem using mixed integer linear programming follows a methodology illustrated below.
 <p align="center">
-  <img width="800" src="https://user-images.githubusercontent.com/8837107/225469001-c06c087b-7960-4229-b05b-a43d307a13fd.png">
+  <img width="800" src="https://user-images.githubusercontent.com/8837107/225783212-776a4d10-9c81-4ccd-a6a0-610bcf9f3662.png">
 </p>
 
 First, the network is solved using initial schedules in order to obtain approximate operating points that can assist in model linearization.
@@ -35,9 +35,10 @@ Second, nonlinear network componentes are linearized using linear and piecewise 
 The optimal schedule of pump on/off statuses and pump speeds is input into the full (nonlinear) network model. The results of the final simulation with optimal schedules are then compared against the results obtained with initial schedules.
 
 ## Water Distribution Network Model
-Water network model is composed of the pipe-network model and the pump model. 
+Water network model is composed of the pipe-network model, the pump model and the head-volume relationships in tank nodes. 
 The first is described with a systems of `Kirchoff's` equations for flow continuity in nodes and headlosses in pipe elements.
 The pump model descibes pump head as a function of flow, pump speed and the number of pumps working in parallel.
+Tanks are represented as nodes in which head is calculated as a function of the net water mass balance, i.e. the volume of water entering/leaving the reservoir in each time step.
 Additionally, power consumption in each pump (or pump group) is quantified for the purpose of calculating the network's operating costs.
 
 ### Mass balance in nodes
@@ -93,6 +94,32 @@ which can translates into
  H = A \, q^2 + B \, q \, n \, s + C \, n^2 \, s^2
 \end{equation}
 ```
+### Tank model
+```math
+\begin{equation}
+h_t^j(k)-h_t^j(k-1) - \frac{1}{A_t^j} \, q_t^j(k) = 0 \quad \forall j \in \mathbb{E}_{tank} \quad \forall k = 2\ldots K
+\end{equation}
+```
+
+```math
+\begin{equation}
+ h_t^j(1) = h_{t,init}^j \quad \forall j \in \mathbb{E}_{tank}
+\end{equation}
+```
+in which the tank heads are constrained between the minimum and the maximum values:
+```math
+\begin{equation}
+ h_t^j(k) \le h^j_{t,max}(k) 
+\end{equation}
+```
+
+```math
+\begin{equation}
+ -h_t^j(k) \le -h^j_{t,min}(k)
+\end{equation}
+```
+for all $j \in \{1,\ldots, n_t\}$ and $k \in \{1, \ldots, K\}$.
+
 ## Formulation of the mixed integer linear programme
 ### Objective function and component linearizations
 see documentation [here](src/matlab_octave/milp_formulation/README.md)
@@ -128,8 +155,10 @@ To see a human-readable representation of the linear programme cost function and
 ## Case study
 The case study uses a simple network with two identical pumps in parallel and one tank, shown below.
 <p align="center">
-  <img width="600" src="https://user-images.githubusercontent.com/8837107/225469098-78fdbaa2-270f-4b79-9b6d-182627d32920.svg">
+  <img width="550" src="https://user-images.githubusercontent.com/8837107/225469098-78fdbaa2-270f-4b79-9b6d-182627d32920.svg">
 </p>
+
+The pump schedule, i.e. the number of working pumps and the pump speed, was optimized for the time horizon of 24 hours. The pump schedules, flows in selected network elements, heads in selected nodes and the operating cost are shown in figures below. The figures are listed in three columns showing, respectively, outputs from simulation model using initial schedules, outputs from the MILP model, outputs from the simulation model using optimized schedules.
 
 ### Pump schedules
 ![schedule_compared](https://user-images.githubusercontent.com/8837107/225469274-9a0031d5-3bd0-4044-ae8a-5afe834e0d6e.svg)
@@ -153,7 +182,7 @@ If you use MILOPS-WDN for academic research, please cite the library using the f
 
 ```
 @misc{milops-wdn2023,
- author = {Bogumil Ulanicki, Tomasz Janus},
+ author = {Tomasz Janus, Bogumil Ulanicki},
  title = {MILOPS-WDN: Mixed Integer Linear Optimal Pump Scheduler for Water Distribution Networks},
  year = {2023},
  url = {https://github.com/tomjanus/milp-scheduling},
