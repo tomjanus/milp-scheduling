@@ -56,6 +56,8 @@ function succ = install_milp_scheduler(modify, verbose)
 
   %% get path to new installation root. Obtain root folder, file_name and extension
   [root, n, e] = fileparts(which('install_milp_scheduler'));
+  %% Add path to access get_system function required for installation.
+  addpath(fullfile(root, 'lib'), '-end');
   %% Check whether the user uses MATLAB or Octave
   sw = get_system();
 
