@@ -1,5 +1,12 @@
 <div id="top"></div>
 
+<!-- PROJECT SHIELDS -->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
 <!-- PROJECT LOGO -->
 <p align="center">
     <img alt="dam-opt-logo" src="https://link.us1.storjshare.io/raw/jvyhgzlc5qqh2a44bvn5umvng2jq/milops-wdn/milops-wdn-logo.png"/>
@@ -225,3 +232,15 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/tomjanus/milp-scheduling.svg?style=plastic
+[contributors-url]: https://github.com/tomjanus/milp-scheduling/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/tomjanus/milp-scheduling.svg?style=plastic
+[forks-url]: https://github.com/tomjanus/milp-scheduling/network/members
+[stars-shield]: https://img.shields.io/github/stars/tomjanus/milp-scheduling.svg?style=plastic
+[stars-url]: https://github.com/tjanus/milp-scheduling/stargazers
+[issues-shield]: https://img.shields.io/github/issues/tomjanus/milp-scheduling.svg?style=plastic
+[issues-url]: https://github.com/tomjanus/milp-scheduling/issues
+[license-shield]: https://img.shields.io/github/license/tomjanus/milp-scheduling.svg?style=plastic
+[license-url]: https://github.com/tomjanus/milp-scheduling/blob/master/LICENSE
