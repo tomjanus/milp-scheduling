@@ -39,7 +39,6 @@ function [lb, ub] = set_variable_bounds(var_struct, constraints)
       %       #7
       if strcmp(var_name,'ht')
           lb_constraint(end) = 233.0; % Equal to network.tanks(1).ht0
-          disp(lb_constraint)
       end
       % Set constraint values
     lb_struct.(var_type).(var_name) = lb_constraint;

@@ -42,10 +42,7 @@ function [optim_out,init_sim_output,optim_sim_output,sim,input,vars] = ...
   [Aeq, beq] = set_Aeq_beq_matrices(vars, network, input, lin_pipes,...
       sparse_out);
   % Run the MILP scheduler
-  % For debugging, reset lb and ub vectors
-  %lb_vector = ones(size(lb_vector))*-inf;
-  %ub_vector = ones(size(ub_vector))*inf;
-  %intcon_vector = [];
+  % intcon_vector = [];
   options = optimoptions(...
      'intlinprog', ...
      'CutMaxIterations', 25, ...
@@ -60,10 +57,13 @@ function [optim_out,init_sim_output,optim_sim_output,sim,input,vars] = ...
   optim_out.n = n;
   optim_out.s = s;
   optim_out.x = x;
-  optim_out.schedule.N = sum(n,network.npumps)';
-  optim_out.schedule.S = sum(s,network.npumps)';
+  % This only works for a single pump group
+  [optim_n, optim_s] = linprog_to_sim_schedule(n,s);
+  optim_out.schedule.N = optim_n;
+  optim_out.schedule.S = optim_s;
   % Run the simulator with optimized schedules
-  optim_sim_output = simulator_2p1t(optim_out.schedule, network, input, sim);
+  optim_sim_output = simulator_2p1t(...
+      optim_out.schedule, network, input, sim);
 end
 
 

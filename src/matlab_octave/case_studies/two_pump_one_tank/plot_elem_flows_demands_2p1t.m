@@ -40,7 +40,7 @@ function y = plot_elem_flows_demands_2p1t(time_horizon, input, q3, q4, q5, file_
       'interpreter', 'latex');
     set(gca,'fontsize', AXIS_FONTSIZE)
     xlim([0 time_horizon])
-    ylim([-80 80])
+    ylim([-80 100])
     xticks([0:2:time_horizon])
     grid on;
     hold  off;

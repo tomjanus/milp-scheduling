@@ -1,4 +1,5 @@
-function y = plot_optim_outputs(input, x_vector, vars, titles)
+function y = plot_optim_outputs(...
+    input, x_vector, vars, optim_output, titles)
     % Plot optimization outputs of the 2 pump 1 tank scheduling problem
     y = 0;
     time_horizon = 24;
@@ -26,7 +27,8 @@ function y = plot_optim_outputs(input, x_vector, vars, titles)
     % Pump schedules
     file_name4 = 'optimized_schedule';
     n_pumps = get_number_working_pumps(x_vector, vars, 2)';
-    s_pumps = get_pump_speeds(x_vector, vars, 2)';
-    plot_pump_schedules_2p1t(time_horizon, n_pumps, s_pumps, file_name4, titles{4}, save_to_pdf);
+    %s_pumps = get_pump_speeds(x_vector, vars, 2)';
+    s_pumps = optim_output.s;
+    plot_linprog_pump_schedules_2p1t(time_horizon, n_pumps, s_pumps, file_name4, titles{4}, save_to_pdf);
     y = 1;
 end

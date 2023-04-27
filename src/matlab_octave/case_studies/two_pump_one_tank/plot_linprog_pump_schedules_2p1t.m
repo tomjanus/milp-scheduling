@@ -1,4 +1,4 @@
-function y = plot_pump_schedules_2p1t(...
+function y = plot_linprog_pump_schedules_2p1t(...
         time_horizon, n_pumps, s_pumps, file_name, plot_title, save_to_pdf)
     % Plot pump schedules from the results of the 2 pump 1 tank model
     AXIS_FONTSIZE = 18;
@@ -19,13 +19,17 @@ function y = plot_pump_schedules_2p1t(...
     ylim([0 2])
     hold on;
     yyaxis right
-    s_pumps=[s_pumps(1:time_horizon) s_pumps(time_horizon)];
-    stairs(time_1,s_pumps,'LineWidth',2);
+    %s_pumps_1=[s_pumps((1:time_horizon),1) s_pumps(time_horizon,1)];
+    %s_pumps_1=[s_pumps((1:time_horizon),2) s_pumps(time_horizon,2)];
+    s_pumps_1 = [s_pumps(:,1);1]';
+    s_pumps_2 = [s_pumps(:,2);1]';
+    stairs(time_1,s_pumps_1,'LineWidth',2);
+    stairs(time_1,s_pumps_2,'LineWidth',2);
     ylabel('Pump speed (-)', 'fontsize', LABEL_FONTSIZE, ...
       'interpreter', 'latex');
     title(plot_title, 'fontsize', TITLE_FONTSIZE,...
       'interpreter', 'latex');
-    ll = legend('No. working pumps','Pump speed (relative to nominal)');
+    ll = legend('No. working pumps','Pump 1 speed (relative to nominal)','Pump 2 speed (relative to nominal)');
     set(ll,...
      'fontsize', LEGEND_FONTSIZE,...
      'interpreter', 'latex',...

@@ -16,7 +16,7 @@ function y = plot_energy_consumption_2p1t(time_horizon, input, pump_power, file_
     ylabel('Pumping cost [GBP/hr]', 'fontsize', LABEL_FONTSIZE, ...
       'interpreter', 'latex');
     hold on;
-    ylim([0 5])
+    ylim([0 10])
     yyaxis right
     tariff=[input.tariff(1:time_horizon) input.tariff(time_horizon)];
     stairs(time_1, tariff * 1000,'LineWidth',2);
