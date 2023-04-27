@@ -29,6 +29,18 @@ function [lb, ub] = set_variable_bounds(var_struct, constraints)
           constraint(1));
       ub_constraint = apply_constraint(getfield(ub_struct.(var_type), var_name), ...
           constraint(2));
+
+      % Enforce that the first and the last value of ht are equal
+      % TODO: Remove this if statement and restructure the constraint
+      %       application code to include single values as well as vectors
+      %       (profiles). At the moment constraints can only be formulated
+      %       as upper and lower bounds (constants). Allow code to include
+      %       constraints specified as vectors (profiles). Raised in issue
+      %       #7
+      if strcmp(var_name,'ht')
+          lb_constraint(end) = 233.0; % Equal to network.tanks(1).ht0
+          disp(lb_constraint)
+      end
       % Set constraint values
     lb_struct.(var_type).(var_name) = lb_constraint;
     ub_struct.(var_type).(var_name) = ub_constraint;
