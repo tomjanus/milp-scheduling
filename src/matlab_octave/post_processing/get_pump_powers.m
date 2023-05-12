@@ -11,7 +11,7 @@ function power_vec = get_pump_powers(x_vector, vars, no_pumps)
             x_index_n = map_var_index_to_lp_vector(vars, 'n', {i, j});
             n = x_vector(x_index_n);
             p = x_vector(x_index_p);
-            if n == 1
+            if round(n) == 1
                 pumps_on = pumps_on + 1;
                 p_pump = p_pump + p;
             end

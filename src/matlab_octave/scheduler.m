@@ -1,5 +1,6 @@
 function [n, s, x1]= scheduler(...
-  f_sparse,intcon,A1_sparse,b1_sparse,A1eq_sparse,b1eq_sparse,lb,ub,vars,options)
+  f_sparse,intcon,A1_sparse,b1_sparse,A1eq_sparse,b1eq_sparse,lb,ub,x0,...
+  vars,options)
   % Wrapper for MATLAB's intlinprog
   % Uses MILP formulation to solve a pump scheduling problem in WDNs
 
@@ -13,13 +14,13 @@ function [n, s, x1]= scheduler(...
   % lb: lower bounds on vector x
   % ub: upper bounds on vector x
   % x0: initial point
+  % vars: Variable structure used for mapping variable indices to vector
+  %   and matrix indices in the milp formulation
   % options - intlinprog optimizer options - check https://uk.mathworks.com/help/optim/ug/intlinprog.html#d124e114105
 
   % Return
   % Pump schedules: n, s
   
-  % Do not use x0
-  x0 = [];
   [x1,fval,exitflag,output]= intlinprog(...
     f_sparse,intcon,A1_sparse,b1_sparse,A1eq_sparse,b1eq_sparse,lb,ub,...
     x0,options);
