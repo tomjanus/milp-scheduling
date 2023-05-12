@@ -115,3 +115,9 @@ which translate into the following two single-sided inequalities:
 \end{equation}
 ```
 
+### 8. Setting preferences for pump selection within groups of equal pumps to break problem symmetry - *pump_symmetry_breaking.m*
+```math
+\begin{equation}
+ -n^{j+1}j(k) + n^j(k) \le 0 \quad \forall j \in \{1 \ldots (n_{pumps}-1)\} \quad \textrm{for each pump group with equal pumps}
+\end{equation}
+```
