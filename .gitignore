@@ -157,3 +157,9 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+# LP files
+*.MPS
+*.mps
+*.LP
+*.lp

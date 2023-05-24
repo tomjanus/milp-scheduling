@@ -15,9 +15,11 @@
 <!-- ABOUT THE PROJECT -->
 
 ## About The Library
-This repository contains code for solving optimal pump scheduling problems in Water Distribution Networks using mixed integer linear programming (MILP). Most of the code is compatible with both MATLAB and OCTAVE, however it requires a mixed integer linear solver which currently is only available in MATLAB. For mixed integer linear programming, MATLAB uses a built-in solver called `intlinprog` https://uk.mathworks.com/help/optim/ug/intlinprog.html. The code was tested in **MATLABR2022b**.
+This repository contains code for solving optimal pump scheduling problems in Water Distribution Networks using mixed integer linear programming (MILP). It can run the MILP problem internally within MATLAB or save the formulated mixed integer linear programme into a `.mps` file for solving outside MATLAB with one of the alternative MILP solvers. The library supports solving `.mps` files using CPLEX and CBC using their respective Python APIs. The Python source code for solving `.mps` files with CPLEX and CBC within Jupyter notebook is available in [/src/python/docs/solve_with_cplex_cbc.ipynb](https://github.com/tomjanus/milp-scheduling/blob/main/src/python/docs/solve_with_cplex_cbc.ipynb).
 
-This repository is currently suited for research purposes only. It was created to facilitate running a feasibility study on the application of MILP in pump scheduling. The authors are working on the improvemet of computational time via reduction of the problem size, e.g. by decomposing the problem into sub-problems. We are also looking into testing different solvers, e.g. large scale commercial solvers, parallel solvers, etc.
+Most of the code is compatible with both MATLAB and OCTAVE, except for the solution of mixed integer linear programme which only supports MATLAB, as described in the previous paragraph. For mixed integer linear programming, MATLAB uses a built-in solver called `intlinprog` https://uk.mathworks.com/help/optim/ug/intlinprog.html. The code was tested in **MATLABR2022b**.
+
+This repository is currently suited for research purposes only. It was created to facilitate running a feasibility study on the application of MILP in pump scheduling. The authors are working on the improvemet of computational time via reduction of the problem size, e.g. via decomposition and introduction of special ordered sets for modelling piece-wise linear functions.
 
 ### Methodology
 Solution of the pump scheduling problem using mixed integer linear programming follows a methodology illustrated below.
@@ -144,20 +146,40 @@ The script adds paths to the package files to the MATLAB/OCTAVE environment with
 ## Usage
 This repository contains code that is intended to be used as an API for custom optimization scenarios. Therefore, all functions are directly accessible from command-line and from within script files. Currently, the repository contains one case study in `src/matlab_octave/case_studies/two_pump_one_tank/` that optimizes pump schedules in a simple two-pump-one-tank network.
 
-The case study can be run as follows. First, execute:
+The repository was written in two languages: (1) MATLAB code contains majority of the code that simulates the network, formulates the mixed integer linear programme, find optimal schedule with MATLAB's `intlinprog` and performs final visualisation. (2) Python code is used to find optimal schedule using CPLEX and CBC solvers.
+
+The case study can be run in two ways: (1) In a single-step using MATLAB's `intlinprog` solver and (2) in three steps using an external solver, i.e. CPLEX or CBC. The intermediate step will need to be performed outside MATLAB/OCTAVE by executing the Jupyter notebook in [/src/python/docs/solve_with_cplex_cbc.ipynb](https://github.com/tomjanus/milp-scheduling/blob/main/src/python/docs/solve_with_cplex_cbc.ipynb).
+
+#### Method 1
+Execute script:
 ```matlab
-[optim_output,init_sim_output,optim_sim_output,sim,input,vars] = run_scheduling_2p1t()
+run_2p1t_with_matlab
 ```
-in command prompt or from within a script. This command will run the network with initial schedules, linearize the model, formulate and then solve the mixed-integer linear programme and, finally, simulate the network with the optimized pump schedules. The function outputs the optimization output struct `optim_out`, initial simulation output struct `init_sim_output`, optimized simulation output struct `optim_sim_output`, simulation configuration parameters `sim`, input structure `input` and decision variable strucure `vars`.
-To visualise the results, run:
+in the command prompt from within `/src/matlab_octave/` directory. This command will run the network with initial schedules, linearize the model, formulate and then solve the mixed-integer linear programme and, finally, simulate the network with the optimized pump schedules.
+
+#### Method 2
+**Step 1** Execute script:
 ```matlab
-plot_scheduling_2p1t_results(init_sim_output,optim_output,optim_sim_output,input,sim,vars)
+run_2p1t_without_matlab_1.m
 ```
+This command will run the network with initial schedules, linearize the model, and formulate the mixed integer linear programme that is saved into `src/python/data/2p1t/2p1t.mps`. It will also save intermediate results, i.e. some of the workspace variables to `optim_step1.mat` as they will be needed for further processing in the third step.
+
+**Step 2** Optimize pump schedules using Jupyter notebook and CPLEX/CBC Python API:
+Run Jupyter notebook in `/src/python/docs/solve_with_cplex_cbc.ipynb`. The notebook will produce optimal/sub-optimal state vector $x$ and save it either to `src/python/outputs/2p1t/x_optim_cplex.mat` or `src/python/outputs/2p1t/x_optim_cbc.mat` depending on the choce of solver.
+
+**Step 3** Execute script:
+```matlab
+run_2p1t_without_matlab_2.m
+```
+This script will read the optimization results and the required workspace variables from step 1, simulate the network with the optimized pump schedules and plot the final results.
+
 ### Tests
 To run tests, navigate to `/tests/matlab_octave/` and run the `run_tests.m` script
 
 ### Human-readable representation of the linear programme
 To see a human-readable representation of the linear programme cost function and the equality and inequality constraints, navigate to `tests/matlab_octave/debug_2p1t/` and execute the `run_debug.m` script. The script will create folders with text files in `tests/matlab_octave/debug_2p1t/reports/` containing detailed information about all of the components of the linear programme formulation.
+
+Alternatively, you can view text representations of the linear programme either in `.mps` or `.lp` formats. MPS files are created automatically when the case study is run either with or without matlab and the file is saved to `src/python/data/2pt1/2p1t.mps`. The MPS file can be converted to LP file in the Jupyter notebook in `/src/python/docs/solve_with_cplex_cbc.ipynb` and will be saved in the same folder as the MPS file.
 
 ## Case study
 The case study uses a simple network with two identical pumps in parallel and one tank, shown below.
@@ -167,13 +189,19 @@ The case study uses a simple network with two identical pumps in parallel and on
 
 The pump schedule, i.e. the number of working pumps and the pump speed, was optimized for the time horizon of 24 hours. The pump schedules, flows in selected network elements, heads in selected nodes and the operating cost are shown in figures below. The figures are listed in three columns showing, respectively, outputs from simulation model using initial schedules, outputs from the MILP model, outputs from the simulation model using optimized schedules.
 
-### Pump schedules
+### Optimization times
+Three solvers were tried in this case study: (1) MATLAB's `intlinprog` solver shipped with MATLAB's Optimization Toolbox, (2) IBM's commercial `ILOG CPLEX` solver (free for academic use) and (3) COINOR free open-source CBC (coinor branch and cut) solver.
+
+MATLAB's solver performed the worst with run times over 1 hour and slow convergence (narrowing of the MIP optimality gap). For this reason, using MATLAB's `intlinprog` is not feasible. CPLEX perfomed the best and provided optimal solution with objective value 60.5 GBP for the pump running cost in around 2 seconds. CBC was able to produce a sub-optimal solution of 65 GBP within approx. 60 seconds. We have not attempted to run an exhaustive search with CBC in order to find a solution with proven optimality.
+
+### Results
+#### Pump schedules
 ![schedule_compared](https://user-images.githubusercontent.com/8837107/225469274-9a0031d5-3bd0-4044-ae8a-5afe834e0d6e.svg)
-### Flows in selected elements
+#### Flows in selected elements
 ![flows_compared](https://user-images.githubusercontent.com/8837107/225469312-8e59c44b-068d-4298-9a48-43ed96aadd8e.svg)
-### Heads at selected nodes
+#### Heads at selected nodes
 ![heads_compared](https://user-images.githubusercontent.com/8837107/225469461-4d645b7e-7663-4cb7-9bf5-d01f8d5f9d56.svg)
-### Operating cost
+#### Operating cost
 ![cost_compared](https://user-images.githubusercontent.com/8837107/225469386-4f7fa3e4-a97c-4231-a5a6-37b0de04a87a.svg)
 
 ## License
@@ -210,6 +238,7 @@ Project Link: [https://github.com/tomjanus/milp-scheduling](https://github.com/t
 <!-- ACKNOWLEDGMENTS -->
 
 ## References
+[1] [Practical Guide for Solving Difficult Mixed Integer Linear Problems](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiHlNjj4Y3_AhWhVqQEHUWuBRoQFnoECCwQAQ&url=https%3A%2F%2Fwww.researchgate.net%2Fprofile%2FMohamed-Mourad-Lafifi%2Fpost%2FHow_to_retrieve_explored_node_and_the_number_of_added_user_defined_valid_cut_when_solving_mip_problem_with_solver_Gurobi%2Fattachment%2F5ff5a1bad6d0290001a2e52d%2FAS%253A976944980033538%25401609933242569%2Fdownload%2FPractical%2BGuidelines%2Bfor%2BSolving%2BDifficult%2BMixed%2BInteger%2BLinear%2BPrograms.pdf&usg=AOvVaw3wTwJ2_gRZzrmiRp4Mh9qz)
 
 ## Contributors ✨
 

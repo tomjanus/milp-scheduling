@@ -1,1 +1,4 @@
 fpdf==1.7.2
+cplex
+mip
+scipy

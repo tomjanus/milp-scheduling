@@ -1,6 +1,7 @@
-function y = plot_scheduling_2p1t_results(init_sim_output, optim_output, optim_sim_output, input, sim, vars)
-    % Plot the results of the optimal pump scheduling exercise on a two pump one tank
-    % system.
+function y = plot_scheduling_2p1t_results(init_sim_output, optim_output, ...
+        optim_sim_output, input, sim, vars)
+    % Plot the results of the optimal pump scheduling exercise on a two 
+    % pump one tank system.
     % Args:
     % init_sim_output - output from the simulation with initial schedules
     % optim_output - output from the MILP model
