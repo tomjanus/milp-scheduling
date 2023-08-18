@@ -196,13 +196,13 @@ MATLAB's solver performed the worst with run times over 1 hour and slow converge
 
 ### Results
 #### Pump schedules
-![schedule_compared](https://user-images.githubusercontent.com/8837107/225469274-9a0031d5-3bd0-4044-ae8a-5afe834e0d6e.svg)
+![schedule_compared](https://github.com/tomjanus/milp-scheduling/assets/8837107/541882ec-f287-4e7d-bfab-61deb4d053b5)
 #### Flows in selected elements
-![flows_compared](https://user-images.githubusercontent.com/8837107/225469312-8e59c44b-068d-4298-9a48-43ed96aadd8e.svg)
+![flows_compared](https://github.com/tomjanus/milp-scheduling/assets/8837107/d0f93ea9-0908-406c-a49c-7e92f4bef802)
 #### Heads at selected nodes
-![heads_compared](https://user-images.githubusercontent.com/8837107/225469461-4d645b7e-7663-4cb7-9bf5-d01f8d5f9d56.svg)
+![heads_compared](https://github.com/tomjanus/milp-scheduling/assets/8837107/92bbb0ba-f9b1-4b4a-8289-b7931fc570d3)
 #### Operating cost
-![cost_compared](https://user-images.githubusercontent.com/8837107/225469386-4f7fa3e4-a97c-4231-a5a6-37b0de04a87a.svg)
+![cost_compared](https://github.com/tomjanus/milp-scheduling/assets/8837107/6d58330f-0350-4fe1-b70e-f2e4a16e3b45)
 
 ## License
 [GPL-3.0](https://choosealicense.com/licenses/gpl-3.0/)
