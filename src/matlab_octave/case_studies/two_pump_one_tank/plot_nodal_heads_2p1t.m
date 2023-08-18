@@ -40,7 +40,7 @@ function y = plot_nodal_heads_2p1t(time_horizon, hc1, hc2, hc3, hc4, ht, file_na
     hold off;
     if (save_to_pdf == 1) && (get_system() == "OCTAVE")
         print(hf2, file_name, '-dpdflatexstandalone');
-        pdflatex_command = sprintf('pdflatex %s', filename);
+        pdflatex_command = sprintf('pdflatex %s', file_name);
         system(pdflatex_command);   
     end
     y = 1;

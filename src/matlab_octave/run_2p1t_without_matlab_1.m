@@ -14,6 +14,8 @@
 % 1. run_2p1t_without_matlab_1.m
 % 2. run_2p1t_without_matlab_2.m
 
+final_tank_level = 232.5;
+
 % In between 1 and 2 it is required to run the optimization outside matlab and transfer the
 % generated outputs back to the root directory, i.e. the directory in which this file is located.
    
@@ -28,7 +30,7 @@ init_sim_output = simulator_2p1t(input.init_schedule, network, input, sim);
 
 %% Transform network to a mixed integer linear model
 lin_model = transform_2p1t_to_milp(input, linprog, network, pump_groups, ...
-    init_sim_output, 1, 1, 1);
+    init_sim_output, 1, 1, 1, final_tank_level);
 
 % Save state for part 2 of the analysis
 save("optim_step1.mat", "input", "network", "sim", "vars", "init_sim_output");

@@ -1,4 +1,4 @@
-function [lb, ub] = set_variable_bounds(var_struct, constraints)
+function [lb, ub] = set_variable_bounds(var_struct, constraints, ht_forced_end)
   % Set upper and lower boundaries for continuous and binary decision variables
   % Set constraints on continuous variables
   % Args:
@@ -38,7 +38,7 @@ function [lb, ub] = set_variable_bounds(var_struct, constraints)
       %       constraints specified as vectors (profiles). Raised in issue
       %       #7
       if strcmp(var_name,'ht')
-          lb_constraint(end) = 233.0; % Equal to network.tanks(1).ht0
+          lb_constraint(end) = ht_forced_end; % Equal to network.tanks(1).ht0 = 233 (default 2p1t case study)
       end
       % Set constraint values
     lb_struct.(var_type).(var_name) = lb_constraint;

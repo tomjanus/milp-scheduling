@@ -12,8 +12,10 @@
 load("optim_step1.mat");
 % Note, if you run cbc change the below path to
 % "../python/outputs/2p1t/x_optim_cbc.mat"
-load("../python/outputs/2p1t/x_optim_cplex", "x"); % Needs to load optimization state variable `x`
-   
+load("../python/outputs/2p1t/x_optim_cplex", "x", "obj"); % Needs to load optimization state variable `x`
+
+disp(obj)
+
 % Retrieve pump schedule from the optimal state vector x
 [n, s] = find_schedule_from_x(1, vars, x);
 optim_output.n = n;
@@ -36,8 +38,9 @@ optim_sim_output = simulator_2p1t(...
 % 1. simulation with initial schedule
 % 2. optimizer output
 % 3. final_simulation with optimized schedule
+folder = "./outputs_16_08";
 plot_scheduling_2p1t_results(init_sim_output, optim_output, ...
-        optim_sim_output, input, sim, vars);
+        optim_sim_output, input, sim, vars, folder);
         
 % Remove intermediate step .mat file `optim_step1.mat`
 delete('optim_step1.mat')

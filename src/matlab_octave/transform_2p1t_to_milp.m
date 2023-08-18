@@ -1,6 +1,6 @@
 function lin_model = transform_2p1t_to_milp(...
     input, linprog, network, pump_groups, init_sim_output, ...
-    save_to_mps, save_to_mat, var_names)
+    save_to_mps, save_to_mat, var_names, final_water_level)
   % Process the 2p1t model and create a mixed integer linear programme
   % representation (lin_model). Save to mps file and/or mat file
   % when required (if save_to_mps and save_to_mat respectively, are set to tru)
@@ -8,6 +8,8 @@ function lin_model = transform_2p1t_to_milp(...
   % Find q_op and s_op at 12
   pump_speed_12 = input.init_schedule.S(12);
   pump_flow_12 = init_sim_output.q(2,12)/input.init_schedule.N(12);
+  pump_speed_nominal = 1;
+  pump_flow_max_eff = pump_groups.pump.max_eff_flow;
   % Step 4 - Formulate linear program
   % Initialise continuous and binary variable structures
   vars = initialise_var_structure(network, linprog);
@@ -17,7 +19,7 @@ function lin_model = transform_2p1t_to_milp(...
   c_vector = set_objective_vector(vars, network, input, linprog, true);
   % Get variable (box) constraints for the two pump one tank network
   constraints = set_constraints_2p1t(network);
-  [lb_vector, ub_vector] = set_variable_bounds(vars, constraints);
+  [lb_vector, ub_vector] = set_variable_bounds(vars, constraints, final_water_level); % Hard coded initial water level
   % Linearize the pipe and pump elements
   lin_pipes = linearize_pipes_2p1t(network, init_sim_output);
   lin_pumps = linearize_pumps_2p1t(pump_groups);

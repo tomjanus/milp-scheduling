@@ -46,7 +46,7 @@ function y = plot_elem_flows_demands_2p1t(time_horizon, input, q3, q4, q5, file_
     hold  off;
     if (save_to_pdf == 1) && (get_system() == "OCTAVE")
       print(hf1, file_name, '-dpdflatexstandalone');
-      pdflatex_command = sprintf('pdflatex %s', filename);
+      pdflatex_command = sprintf('pdflatex %s', file_name);
       system(pdflatex_command);     
     end
     y = 1;

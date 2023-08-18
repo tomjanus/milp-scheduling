@@ -30,7 +30,7 @@ function [input,const,linprog,network,sim,pump_groups] = initialise_2p1t()
   nt = 1; % number of tanks
   nr = 1; % number of reservoirs
   % Initial tank heads
-  init_tank_levels = [3.0];
+  init_tank_levels = [2.5];
   % -------------------------------
   % (4 pipes: n1-n2; n3-n4; n4-n5; n5-n6)
   L_pipe = [10, 1610, 61, 1610];
@@ -158,11 +158,11 @@ function [input,const,linprog,network,sim,pump_groups] = initialise_2p1t()
       0.087490, 0.087490, 0.15195, 0.15195, 0.15195, 0.084340, 0.084340, ...
       0.084340, 0.084340, 0.084340, 0.084340];
   %% Initial pump schedules
-  input.init_schedule.N = [2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 0 0 0 2 2 2 2 2 2];
-  input.init_schedule.S = 0.8 * ones(1, sim.TIME_HORIZON);
+  input.init_schedule.N = [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1];
+  input.init_schedule.S = 0.85 * ones(1, sim.TIME_HORIZON);
   % A 24x1 vector of demands for calculated node 4
   demand4 = [0.72, 0.59, 0.53, 0.47, 0.51, 0.55, 1.1, 1.53,	1.51, 1.34, 1.3, ...
-      1.3, 1.24,	1.24, 1.17, 1.14, 1.06, 1.121, 1.15, 1.31, 1.24,	1.21, ...
+      1.3, 1.24, 1.24, 1.17, 1.14, 1.06, 1.121, 1.15, 1.31, 1.24, 1.21, ...
       1.13, 1.14];
   % Create a matrix of nodal demands representative of the whole network (to 
   % be used by the MILP formulation

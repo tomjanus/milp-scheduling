@@ -10,6 +10,7 @@
 %% Set flags
 save_to_mps = 1;  % Save the linear programme to mps file
 save_to_mat = 1;  % Save the linear programme matrices to .mat file
+final_water_level = 232.5; % Final water level (head) enforced in the reservoir
 
 %% Set options
 max_optim_time = 100;  % Maximum allowed optimization time in seconds
@@ -37,7 +38,7 @@ init_sim_output = simulator_2p1t(input.init_schedule, network, input, sim);
 
 %% Transform network to a mixed integer linear model
 lin_model = transform_2p1t_to_milp(input, linprog, network, pump_groups, ...
-    init_sim_output, save_to_mps, save_to_mat, 1);
+    init_sim_output, save_to_mps, save_to_mat, 1, final_water_level);
 
 %% Set initial condition for the linear programme
 x0=[];

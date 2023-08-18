@@ -44,7 +44,7 @@ function y = plot_linprog_pump_schedules_2p1t(...
     hold off;
     if (save_to_pdf == 1) && (get_system() == "OCTAVE")
         print(hf4, file_name, '-dpdflatexstandalone');
-        pdflatex_command = sprintf('pdflatex %s', filename);
+        pdflatex_command = sprintf('pdflatex %s', file_name);
         system(pdflatex_command);   
     end
 end

@@ -163,3 +163,7 @@ MANIFEST
 *.mps
 *.LP
 *.lp
+
+# CCWI Case study outputs
+src/matlab_octave/case_studies/ccwi2023/figures/
+src/matlab_octave/case_studies/ccwi2023/outputs_*
