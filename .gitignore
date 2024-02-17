@@ -164,6 +164,12 @@ MANIFEST
 *.LP
 *.lp
 
+models/*
+# Allow only epanet files and markdown files
+!models/*.md
+!models/*.inp
+!models/*.net
+
 # CCWI Case study outputs
 src/matlab_octave/case_studies/ccwi2023/figures/
 src/matlab_octave/case_studies/ccwi2023/outputs_*
