@@ -9,7 +9,7 @@
 
 <!-- PROJECT LOGO -->
 <p align="center">
-    <img alt="dam-opt-logo" src="https://link.us1.storjshare.io/raw/jvyhgzlc5qqh2a44bvn5umvng2jq/milops-wdn/milops-wdn-logo.png"/>
+    <img alt="milops-wdn-logo" src="https://github.com/tomjanus/milp-scheduling/assets/8837107/55c114ee-145d-4cfe-9a57-1e4ea1df287e"/>
 </p>
 
 <!-- ABOUT THE PROJECT -->
