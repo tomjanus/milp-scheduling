@@ -184,8 +184,8 @@ for tank_area_ix = 1:n_areas
                 % Fetch tank levels from the decision variable vector x and from final simulation
                 ht_milp = get_tank_levels(outputs.x, vars, 1)';
                 ht_final_sim = optim_sim_output.ht(1:end-1);
-                ht_rmse = rmse(ht_final_sim, ht_milp);
-                ht_mae = mae(ht_final_sim, ht_milp);
+                ht_rmse = calculateRMSE(ht_final_sim, ht_milp);
+                ht_mae = calculateMAE(ht_final_sim, ht_milp);
                 outputs.ht_rmse = ht_rmse;
                 outputs.ht_mae = ht_mae;
                 
@@ -218,3 +218,32 @@ end
 save(fullfile(outputs_folder, "batch_output.mat"), "batch_outputs");
 disp("FAILED RUNS:")
 disp(failed_runs)
+
+function rmse = calculateRMSE(vector1, vector2)
+    % Check if the input vectors have the same length
+    if length(vector1) ~= length(vector2)
+        error('Input vectors must have the same length');
+    end
+    
+    % Calculate the squared differences
+    squaredDifferences = (vector1 - vector2).^2;
+    
+    % Calculate the mean of the squared differences
+    meanSquaredDifferences = mean(squaredDifferences);
+    
+    % Calculate the root mean squared error
+    rmse = sqrt(meanSquaredDifferences);
+end
+
+function mae = calculateMAE(vector1, vector2)
+    % Check if the input vectors have the same length
+    if length(vector1) ~= length(vector2)
+        error('Input vectors must have the same length');
+    end
+    
+    % Calculate the absolute differences
+    absoluteDifferences = abs(vector1 - vector2);
+    
+    % Calculate the mean of the absolute differences
+    mae = mean(absoluteDifferences);
+end
